@@ -1,7 +1,5 @@
 package com.getfhtt.fhtt;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 
 public class SearchFragment extends Fragment {
@@ -60,12 +57,13 @@ public class SearchFragment extends Fragment {
         // Inflate the layout for this fragment
         View myView = inflater.inflate(R.layout.fragment_search, container, false);
         Button bSearch = (Button) myView.findViewById(R.id.bSearch);
-        EditText etFrom = (EditText) myView.findViewById(R.id.etFrom);
-        EditText etTo = (EditText) myView.findViewById(R.id.etTo);
+        final EditText etFrom = (EditText) myView.findViewById(R.id.etFrom);
+        final EditText etTo = (EditText) myView.findViewById(R.id.etTo);
         bSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Insert Code
+                MainActivity myActivity = (MainActivity) getActivity();
+                myActivity.searchAndDisplay(etFrom.getText().toString(), etTo.getText().toString());
             }
         });
         return myView;
