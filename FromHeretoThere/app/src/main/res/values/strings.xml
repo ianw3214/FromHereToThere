@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">From Here to There</string>
+    <string name="app_name">FHTT</string>
+    <string name="title_activity_login">Login</string>
 </resources>
