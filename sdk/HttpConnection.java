@@ -11,10 +11,38 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.xml.sax.InputSource;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 public class HttpConnection {
 
 	private final String USER_AGENT = "Mozilla/5.0";
+	
+	/**
+	 * Takes in an address and returns the longitude/latitude position
+	 * @param address : 	String representation of input address
+	 * @return				JSON object containing resulting coordinates
+	 */
+	public JSONObject geoLocation(String address){
+		JSONObject result = new JSONObject();
+		String apiLink = "https://maps.googleapis.com/maps/api/geocode/json?address=";
+		String loc = this.parseStringForLocation(address);
+		String apiKey = "&key=AIzaSyA8HJbr8Yi5QITSEIFH6Y05iy4Bojyjn5o";
+		String response = sendGet(apiLink + loc + apiKey, true);
+		JSONParser parser = new JSONParser();
+		try{
+			Object obj = parser.parse(response);
+			result = (JSONObject)obj;
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		JSONArray results = (JSONArray)(result.get("results"));
+		JSONObject geometry = (JSONObject) results.get(0);
+		JSONObject viewport = (JSONObject) geometry.get("geometry");
+		JSONObject location = (JSONObject) viewport.get("location");
+		return location;
+	}
 	
 	/**
 	 * Get the current national average gas price
@@ -108,6 +136,10 @@ public class HttpConnection {
 		}
 		
 		return response.toString();
+	}
+	
+	private String parseStringForLocation(String input){
+		return input.replaceAll(" ", "+");
 	}
 	
 }

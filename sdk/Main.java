@@ -8,6 +8,8 @@ public class Main {
 		System.out.println("Electric test : " + test);
 		// add a verbose parameter for steps
 		http.getFuelPrice("e85", true);
+		// get the longitude/latitude position of the input
+		System.out.println(http.geoLocation("Kingston Ontario"));
 	}
 
 }
