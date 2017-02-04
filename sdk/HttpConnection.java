@@ -24,7 +24,7 @@ public class HttpConnection {
 	 */
 	public float getFuelPrice(String type){
 		// send the http request to get the XML data
-		String response = this.sendGet(false);
+		String response = this.sendGet("http://www.fueleconomy.gov/ws/rest/fuelprices", false);
 		String result = "";
 		// parse the returned XML data
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -54,7 +54,7 @@ public class HttpConnection {
 	 */
 	public float getFuelPrice(String type, boolean verbose){
 		// send the http request to get the XML data
-		String response = this.sendGet(verbose);
+		String response = this.sendGet("http://www.fueleconomy.gov/ws/rest/fuelprices", verbose);
 		String result = "";
 		// parse the returned XML data
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -78,8 +78,7 @@ public class HttpConnection {
 		return Float.parseFloat(result);
 	}
 	
-	private String sendGet(boolean verbose){
-		String url = "http://www.fueleconomy.gov/ws/rest/fuelprices";
+	private String sendGet(String url, boolean verbose){
 		StringBuffer response = new StringBuffer();
 		try{
 			URL obj = new URL(url);
@@ -101,6 +100,7 @@ public class HttpConnection {
 			
 			while((inputLine = in.readLine()) != null){
 				response.append(inputLine);
+				if(verbose){System.out.println("Read: " + inputLine);}
 			}
 			in.close();
 		}catch(Exception e){
