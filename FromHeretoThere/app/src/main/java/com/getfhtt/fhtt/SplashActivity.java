@@ -10,6 +10,6 @@ public class SplashActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //Load main page
-        startActivity(new Intent(SplashActivity.this, MapsActivity.class));
+        startActivity(new Intent(SplashActivity.this, MainActivity.class));
     }
 }
