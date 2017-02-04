@@ -20,6 +20,36 @@ public class HttpConnection {
 	private final String USER_AGENT = "Mozilla/5.0";
 	
 	/**
+	 * Returns the time needed to travel between two points
+	 * @param origin : 		The source location
+	 * @param destination : The destination location
+	 * @param type : 		The type of travel
+	 * @return : 			A string representation of time.
+	 */
+	public String getTime(String origin, String destination, String type){
+		String apiLink = "https://maps.googleapis.com/maps/api/directions/json?mode=";
+		apiLink += type + "&origin=";
+		apiLink += this.parseStringForLocation(origin) + "&destination=";
+		apiLink += this.parseStringForLocation(destination);
+		apiLink += "&key=AIzaSyA8HJbr8Yi5QITSEIFH6Y05iy4Bojyjn5o";
+		String response = sendGet(apiLink, true);
+		JSONParser parser = new JSONParser();
+		JSONObject result = new JSONObject();
+		try{
+			Object obj = parser.parse(response);
+			result = (JSONObject)obj;
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		JSONArray routes = (JSONArray) result.get("routes");
+		JSONObject route = (JSONObject)routes.get(0);
+		JSONArray legs = (JSONArray) route.get("legs");
+		JSONObject info = (JSONObject) legs.get(0);
+		JSONObject duration = (JSONObject) info.get("duration");
+		return (String) duration.get("text");
+	}
+	
+	/**
 	 * Takes in an address and returns the longitude/latitude position
 	 * @param address : 	String representation of input address
 	 * @return				JSON object containing resulting coordinates
@@ -29,7 +59,7 @@ public class HttpConnection {
 		String apiLink = "https://maps.googleapis.com/maps/api/geocode/json?address=";
 		String loc = this.parseStringForLocation(address);
 		String apiKey = "&key=AIzaSyA8HJbr8Yi5QITSEIFH6Y05iy4Bojyjn5o";
-		String response = sendGet(apiLink + loc + apiKey, true);
+		String response = sendGet(apiLink + loc + apiKey, false);
 		JSONParser parser = new JSONParser();
 		try{
 			Object obj = parser.parse(response);
