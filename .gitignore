@@ -1,0 +1,9 @@
+*.iml
+.gradle
+/FromHeretoThere/local.properties
+/FromHeretoThere/.idea/workspace.xml
+/FromHeretoThere/.idea/libraries
+.DS_Store
+/FromHeretoThere/build
+/FromHeretoThere/captures
+.externalNativeBuild
