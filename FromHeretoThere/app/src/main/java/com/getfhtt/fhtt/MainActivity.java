@@ -12,4 +12,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setElevation(0);
         getSupportActionBar().setTitle("Journey Details");
     }
+
+
 }
