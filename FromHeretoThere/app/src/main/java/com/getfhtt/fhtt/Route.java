@@ -60,7 +60,7 @@ public class Route {
         JSONArray legs = (JSONArray) route.get("legs");
         JSONObject info = (JSONObject) legs.get(0);
         JSONObject duration = (JSONObject) info.get("duration");
-        return (String) duration.get("value");
+        return  (long) (duration.get("value"))/60 + "";
     }
 
     // Returns the distance between two points based on travel mode

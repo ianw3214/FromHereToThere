@@ -106,7 +106,7 @@ public class ResultsFragment extends Fragment {
             public void onDataLoaded() {
                 if(myDriving.isLoaded()){
                     cDriving.setCost("$"+cost(myDriving.getDistance()/1000+""));
-                    cDriving.setText(myDriving.getTravelTime() + " minutes total\n" + myDriving.getTravelTime()+ " physical activity\n"+ calories(myDriving.getDistance()/1000)+" calories");
+                    cDriving.setText(myDriving.getTravelTime() + " minutes total\n" + myDriving.getTravelTime()+ " physical activity\n"+ myDriving.getTravelTimeMin() +" calories");
                 }
             }
         });
