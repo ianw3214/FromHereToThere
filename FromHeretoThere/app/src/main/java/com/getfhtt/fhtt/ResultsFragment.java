@@ -168,7 +168,7 @@ public class ResultsFragment extends Fragment {
                         tvCopyright.setText(myTravel.getCopyright());
                         itemloaded = true;
                         cTransit.setVisibility(View.VISIBLE);
-                        cTransit.setText((myTravel.getWalkingTime()*190/60 + myTravel.getTravelTimeMin()) + " calories burned\n" + myTravel.getWalkingTime() + " minutes physical activity\n" + myTravel.getTravelTime() + " minutes total");
+                        cTransit.setText((myTravel.getWalkingTime()*190/60 + Integer.parseInt(myTravel.getTravelTimeMin())) + " calories burned\n" + myTravel.getWalkingTime() + " minutes physical activity\n" + myTravel.getTravelTime() + " minutes total");
                         cTransit.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
