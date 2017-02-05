@@ -77,29 +77,47 @@ public class ResultsFragment extends Fragment {
             @Override
             public void onDataLoaded() {
                 if(myTravel.isLoaded()){
-                    cWalking.setText(myTravel.getTravelTime() + " minutes total\n" + myTravel.getTravelTime()+ " minutes physical activity\n"+ "Some amount of calories");
+                    cWalking.setText(myTravel.getTravelTime() + " minutes total\n" + myTravel.getTravelTime()+ " minutes physical activity\n"+ calories(myTravel.getDistance())+"Some amount of calories");
                 }
             }
         });
         return myView;
     }
 
-    public void userStats(String distance) {
+    public double cost(String distance) {
         int metres = Integer.parseInt(distance);
 
-        //Constants for Calculations
+        //Constant for Calculations
         double costPerKm = 0.106;
-        int emissionsPerKm = 255;
-        int caloriesPerKm = 112;
 
         //Calculation for money saved
         double moneySaved = costPerKm * metres;
 
+        return moneySaved;
+
+    }
+
+    public long emissions (Long distance) {
+        long metres = distance;
+
+        //Constant for Calculations
+        int emissionsPerKm = 255;
+
         //Calculation for emissions saved
-        int emissionsSaved = emissionsPerKm * metres;
+        long emissionsSaved = emissionsPerKm * metres;
+
+        return emissionsSaved;
+    }
+
+    public long calories (long distance) {
+        long metres = distance;
+
+        //Constant for Calculations
+        int caloriesPerKm = 112;
 
         //Calculation for caloriesBurned
-        int caloriesSaved = caloriesPerKm * metres;
+        long caloriesSaved = caloriesPerKm * metres;
 
+        return caloriesSaved;
     }
 }
