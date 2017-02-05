@@ -54,6 +54,7 @@ public class Route {
         return (String) duration.get("text");
     }
 
+    // Returns the distance between two points based on travel mode
     public Long getDistance() {
         JSONArray routes = (JSONArray) data.get("routes");
         JSONObject route = (JSONObject) routes.get(0);
@@ -63,6 +64,7 @@ public class Route {
         return (Long) distance.get("value");
     }
 
+    // Returns the geocodded start address
     public String getStartAddress() {
         JSONArray routes = (JSONArray) data.get("routes");
         JSONObject route = (JSONObject) routes.get(0);
@@ -71,6 +73,7 @@ public class Route {
         return (String) info.get("start_address");
     }
 
+    // Returns the geocodded end address
     public String getEndAddress() {
         JSONArray routes = (JSONArray) data.get("routes");
         JSONObject route = (JSONObject) routes.get(0);
@@ -79,6 +82,7 @@ public class Route {
         return (String) info.get("end_address");
     }
 
+    // Returns the mandatory copyright string
     public String getCopyright() {
         JSONArray routes = (JSONArray) data.get("routes");
         JSONObject route = (JSONObject) routes.get(0);
