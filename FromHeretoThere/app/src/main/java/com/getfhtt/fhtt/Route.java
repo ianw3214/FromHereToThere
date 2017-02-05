@@ -138,6 +138,22 @@ public class Route {
         return input.replaceAll(" ", "+");
     }
 
+    // check to make sure that the map can find goecodes for locations
+    public boolean checkGeoCoder(){
+        JSONArray arr = (JSONArray) data.get("geocoded_waypoints");
+        JSONObject status = (JSONObject) arr.get(0);
+        String key = (String) status.get("geocoder_status");
+        if(key == "NOT_FOUND"){return false;}
+        return true;
+    }
+
+    // check to make sure routes exist for the card
+    public boolean checkRoutes(){
+        JSONArray arr = (JSONArray) data.get("routes");
+        if(arr.size() == 0){ return false; }
+        return true;
+    }
+
     class RetrieveDataTask extends AsyncTask<String, Void, String> {
 
         private Exception exception;

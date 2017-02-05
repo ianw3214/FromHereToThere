@@ -6,9 +6,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.getfhtt.fhtt.models.NavigateCard;
+
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,6 +70,9 @@ public class ResultsFragment extends Fragment {
         String origin = getArguments().getString("origin");
         String destination = getArguments().getString("destination");
 
+        final LinearLayout llLoading = (LinearLayout) myView.findViewById(R.id.llLoading);
+        final RelativeLayout rlTopBar = (RelativeLayout) myView.findViewById(R.id.rlTopBar);
+
         final NavigateCard cWalking = (NavigateCard) myView.findViewById(R.id.cWalking);
         final NavigateCard cBiking = (NavigateCard) myView.findViewById(R.id.cBiking);
         final NavigateCard cTransit = (NavigateCard) myView.findViewById(R.id.cTransit);
@@ -77,8 +85,17 @@ public class ResultsFragment extends Fragment {
             @Override
             public void onDataLoaded() {
                 if(myWalking.isLoaded()){
-                    tvInfo.setText("From: "+ myWalking.getStartAddress() + "\nTo: " + myWalking.getEndAddress() + "\n~" + myWalking.getDistance()/1000 + "km depending on mode of transport");
-                    cWalking.setText(myWalking.getTravelTime() + " minutes total\n" + myWalking.getTravelTime()+ " physical activity\n"+ calories(myWalking.getDistance()/1000)+" calories");
+                    if(!myWalking.checkGeoCoder()){
+                        // TODO: reroute user
+                    }else if(!myWalking.checkRoutes()){
+                        cWalking.setVisibility(View.GONE);
+                    }else {
+                        llLoading.setVisibility(View.GONE);
+                        cWalking.setVisibility(View.VISIBLE);
+                        rlTopBar.setVisibility(View.VISIBLE);
+                        tvInfo.setText("From: "+ myWalking.getStartAddress() + "\nTo: " + myWalking.getEndAddress() + "\n~" + myWalking.getDistance()/1000 + "km depending on mode of transport");
+                        cWalking.setText(myWalking.getTravelTime() + " minutes total\n" + myWalking.getTravelTime()+ " physical activity\n"+ calories(myWalking.getDistance()/1000)+" calories");
+                    }
                 }
             }
         });
@@ -87,7 +104,16 @@ public class ResultsFragment extends Fragment {
             @Override
             public void onDataLoaded() {
                 if(myBiking.isLoaded()){
-                    cBiking.setText(myBiking.getTravelTime() + " minutes total\n" + myBiking.getTravelTime()+ " physical activity\n"+ calories(myBiking.getDistance()/1000)+" calories");
+                    if(!myBiking.checkGeoCoder()){
+                        // TODO: reroute user
+                    }else if(!myBiking.checkRoutes()){
+                        cBiking.setVisibility(View.GONE);
+                    }else {
+                        llLoading.setVisibility(View.GONE);
+                        rlTopBar.setVisibility(View.VISIBLE);
+                        cBiking.setVisibility(View.VISIBLE);
+                        cBiking.setText(myBiking.getTravelTime() + " minutes total\n" + myBiking.getTravelTime()+ " physical activity\n"+ calories(myBiking.getDistance()/1000)+" calories");
+                    }
                 }
             }
         });
@@ -96,7 +122,17 @@ public class ResultsFragment extends Fragment {
             @Override
             public void onDataLoaded() {
                 if(myTravel.isLoaded()){
-                    cTransit.setText(myTravel.getTravelTime() + " minutes total\n" + myTravel.getTravelTime()+ " physical activity\n"+ calories(myTravel.getDistance()/1000)+" calories");
+
+                    if(!myTravel.checkGeoCoder()){
+                        // TODO: reroute user
+                    }else if(!myTravel.checkRoutes()){
+                        cTransit.setVisibility(View.GONE);
+                    }else {
+                        llLoading.setVisibility(View.GONE);
+                        rlTopBar.setVisibility(View.VISIBLE);
+                        cTransit.setVisibility(View.VISIBLE);
+                        cTransit.setText(myTravel.getTravelTime() + " minutes total\n" + myTravel.getTravelTime()+ " physical activity\n"+ calories(myTravel.getDistance()/1000)+" calories");
+                    }
                 }
             }
         });
@@ -105,8 +141,18 @@ public class ResultsFragment extends Fragment {
             @Override
             public void onDataLoaded() {
                 if(myDriving.isLoaded()){
-                    cDriving.setCost("$"+cost(myDriving.getDistance()/1000+""));
-                    cDriving.setText(myDriving.getTravelTime() + " minutes total\n" + myDriving.getTravelTime()+ " physical activity\n"+ myDriving.getTravelTimeMin() +" calories");
+
+                    if(!myDriving.checkGeoCoder()){
+                        // TODO: reroute user
+                    }else if(!myDriving.checkRoutes()){
+                        cDriving.setVisibility(View.GONE);
+                    }else {
+                        llLoading.setVisibility(View.GONE);
+                        rlTopBar.setVisibility(View.VISIBLE);
+                        cDriving.setVisibility(View.VISIBLE);
+                        cDriving.setCost("$"+cost(myDriving.getDistance()/1000+""));
+                        cDriving.setText(myDriving.getTravelTime() + " minutes total\n" + myDriving.getTravelTime()+ " physical activity\n"+ myDriving.getTravelTimeMin() +" calories");
+                    }
                 }
             }
         });
@@ -121,6 +167,8 @@ public class ResultsFragment extends Fragment {
 
         //Calculation for money saved
         double moneySaved = costPerKm * metres;
+
+        moneySaved = (double)Math.round(moneySaved * 100d) / 100d;
 
         return moneySaved;
 

@@ -40,7 +40,6 @@
         </com.google.android.gms.common.SignInButton>
 
         <ProgressBar
-            style="@android:style/Widget.Material.Light.ProgressBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/linearLayout"

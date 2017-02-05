@@ -10,8 +10,10 @@
     tools:context="com.getfhtt.fhtt.MainActivity">
 
     <LinearLayout
+        android:id="@+id/llLoading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:orientation="vertical">
 
         <ProgressBar
@@ -20,14 +22,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
             android:layout_marginTop="@dimen/activity_vertical_margin" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:text="Loading..."
-            android:gravity="center"
+            android:textSize="24sp"
+            android:gravity="center_horizontal"
             android:textColor="#80000000"/>
     </LinearLayout>
 
@@ -39,7 +43,9 @@
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin">
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:visibility="gone"
+        android:animateLayoutChanges="true">
 
         <TextView
             android:id="@+id/tvInfo"
@@ -58,7 +64,8 @@
             android:id="@+id/llCardList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:animateLayoutChanges="true">
 
             <com.getfhtt.fhtt.models.NavigateCard
                 android:id="@+id/cWalking"
@@ -70,7 +77,8 @@
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"
-                app:fc_title="Walking" />
+                app:fc_title="Walking"
+                android:visibility="gone"/>
 
             <com.getfhtt.fhtt.models.NavigateCard
                 android:id="@+id/cBiking"
@@ -81,7 +89,8 @@
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"
-                app:fc_title="Biking" />
+                app:fc_title="Biking"
+                android:visibility="gone"/>
 
             <com.getfhtt.fhtt.models.NavigateCard
                 android:id="@+id/cTransit"
@@ -92,7 +101,8 @@
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"
-                app:fc_title="Transit" />
+                app:fc_title="Transit"
+                android:visibility="gone"/>
 
             <com.getfhtt.fhtt.models.NavigateCard
                 android:id="@+id/cDriving"
@@ -103,7 +113,8 @@
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"
-                app:fc_title="Driving" />
+                app:fc_title="Driving"
+                android:visibility="gone"/>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>
