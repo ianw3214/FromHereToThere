@@ -13,9 +13,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.simple.JSONObject;
-
 import com.getfhtt.fhtt.models.NavigateCard;
+
+import org.json.simple.JSONObject;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -141,11 +141,11 @@ public class ResultsFragment extends Fragment {
                     JSONObject start = myBiking.getStart();
                     JSONObject end = myBiking.getEnd();
                     final ElevationRoute elevationData = new ElevationRoute(start, end);
-                    elevationData.setDataLoadedListener(new ElevationRoute.DataLoadedListener(){
+                    elevationData.setDataLoadedListener(new ElevationRoute.DataLoadedListener() {
                         @Override
-                        public void onDataLoaded(){
-                            if(elevationData.isLoaded()){
-                                cBiking.setText(myBiking.getTravelTime() + " total\n" + myBiking.getTravelTime()+ " of physical activity\n"+elevationData.getElevation() + " m\n"+ calories(myBiking.getDistance()/1000)+" calories");
+                        public void onDataLoaded() {
+                            if (elevationData.isLoaded()) {
+                                cBiking.setText(calories(myBiking.getDistance() / 1000) + " calories burned\n" + myBiking.getTravelTime() + " of physical activity\n" + myBiking.getTravelTime() + " total\n" + ((double) Math.round(elevationData.getElevation() * 100d) / 100d) + "m elevation change" );
                             }
                         }
                     });
@@ -176,9 +176,9 @@ public class ResultsFragment extends Fragment {
                             }
                         });
                         int fare = myTravel.getFare();
-                        if(fare < 0){
+                        if (fare < 0) {
                             cTransit.setCost("Unknown cost");
-                        }else{
+                        } else {
                             cTransit.setCost("$" + fare);
                         }
                     }
@@ -201,21 +201,21 @@ public class ResultsFragment extends Fragment {
                         tvCopyright.setText(myDriving.getCopyright());
                         itemloaded = true;
                         cDriving.setVisibility(View.VISIBLE);
-                        cDriving.setCost("$" + cost(myDriving.getDistance() / 1000 + "")+ " Gas");
-                        cDriving.setText(myDriving.getTravelTimeMin() + " calories burned\n" + myDriving.getWalkingTime() + " minutes physical activity\n" + myDriving.getTravelTime() + " total\n" + (float) emissions(myDriving.getDistance()/1000)/1000 + "kg CO" + '\u2082');
+                        cDriving.setCost("$" + cost(myDriving.getDistance() / 1000 + "") + " Gas");
+                        cDriving.setText(myDriving.getTravelTimeMin() + " calories burned\n" + myDriving.getWalkingTime() + " minutes physical activity\n" + myDriving.getTravelTime() + " total\n" + (float) emissions(myDriving.getDistance() / 1000) / 1000 + "kg CO" + '\u2082' + " emitted");
                         cDriving.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 externalLink(myWalking.getStartAddress(), myWalking.getEndAddress());
                             }
                         });
-                        cDriving.setCost("$"+cost(myDriving.getDistance()/1000+""));
+                        cDriving.setCost("$" + cost(myDriving.getDistance() / 1000 + ""));
                         //cDriving.setEmission((float) emissions(myDriving.getDistance()/1000)/1000 + "kg CO" + '\u2082');
                     }
                     loadeditems++;
                     updateLoadState();
                 }
-                
+
             }
         });
         return myView;
@@ -235,7 +235,7 @@ public class ResultsFragment extends Fragment {
         } else if (itemloaded) {
             rlTopBar.setVisibility(View.VISIBLE);
         }
-        if(loadeditems == 4){
+        if (loadeditems == 4) {
             llLoading.setVisibility(View.GONE);
         }
     }
