@@ -130,6 +130,17 @@ public class Route {
         return -1;
     }
 
+    public String getCurrency(){
+        JSONArray routes = (JSONArray) data.get("routes");
+        JSONObject route = (JSONObject) routes.get(0);
+        JSONObject legs = (JSONObject) route.get("fare");
+        if (legs != null) {
+            String curr= (String) legs.get("currency");
+            return curr;
+        }
+        return "";
+    }
+
     //Checks if route data was successfully loaded
     public Boolean isLoaded() {
         return data != null;

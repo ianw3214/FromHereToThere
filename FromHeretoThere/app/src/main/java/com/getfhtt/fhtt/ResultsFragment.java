@@ -179,7 +179,7 @@ public class ResultsFragment extends Fragment {
                         if (fare < 0) {
                             cTransit.setCost("Unknown cost");
                         } else {
-                            cTransit.setCost("$" + fare);
+                            cTransit.setCost("$" + fare + myTravel.getCurrency());
                         }
                     }
                     loadeditems++;
