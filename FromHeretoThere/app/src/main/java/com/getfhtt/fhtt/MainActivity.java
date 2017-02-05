@@ -23,8 +23,9 @@ public class MainActivity extends AppCompatActivity{
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.flFragment, mySearchFragment).commit();
     }
-
-
+  
+    public void userStats(String distance) {
+        int metres = Integer.parseInt(distance);
 
     public void searchAndDisplay(String origin, String destination){
         getSupportActionBar().show();
