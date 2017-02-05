@@ -39,40 +39,40 @@ public class ConfirmActivity extends AppCompatActivity {
         // display data differently depending on the users choice of travel
         switch(mode){
             case "walking":{
-                tvTitle.setText("By walking...");
-                String text = "You save " + emissons + ",\n";
-                text += "You burn " + calories + ",\n";
-                text += "You save " + cost + " in gas money,\n";
-                text += "You travel " + distance + ",\n";
-                text += "And You travel for " + duraction + ",\n";
+                tvTitle.setText("By walking, you...");
+                String text = "Save " + emissons + " over driving\n";
+                text += "Burn " + calories + " calories\n";
+                text += "Save " + cost + " in gas money\n";
+                text += "Travel " + distance + " km\n";
+                text += "Travel for " + duraction + "\n";
                 tvText.setText(text);
             } break;
             case "bicycling": {
-                tvTitle.setText("By biking...");
-                String text = "You save " + emissons + ",\n";
-                text += "You burn " + calories + ",\n";
-                text += "You save " + cost + " in gas money,\n";
-                text += "You travel " + distance + ",\n";
-                text += "And You travel for " + duraction + ",\n";
+                tvTitle.setText("By biking, you...");
+                String text = "Save " + emissons + " over driving\n";
+                text += "Burn " + calories + " calories\n";
+                text += "Save " + cost + " in gas money\n";
+                text += "Travel " + distance + " km\n";
+                text += "Travel for " + duraction + "\n";
                 tvText.setText(text);
             } break;
             case "transit": {
-                tvTitle.setText("By taking public transit...");
-                String text = "You will burn less fossil fuel than if you drove a car (" + emissons + "),\n";
-                text += "You burn " + calories + ",\n";
-                text += "You save a little less than " + cost + " in gas money,\n";
-                text += "You travel " + distance + ",\n";
-                text += "And You travel for " + duraction + ",\n";
+                tvTitle.setText("By taking public transit, you...");
+                String text = "Burn less fossil fuel than if you drove a car (" + emissons + ")\n";
+                text += "Burn " + calories + " calories\n";
+                text += "Save a little less than " + cost + " in gas money\n";
+                text += "Travel " + distance + " km\n";
+                text += "Travel for " + duraction + "\n";
                 tvText.setText(text);
             } break;
             case "driving":
             default: {
-                tvTitle.setText("By driving...");
-                String text = "You use " + emissons + ",\n";
-                text += "You burn " + calories + ",\n";
-                text += "You spend " + cost + " in gas money,\n";
-                text += "You travel " + distance + ",\n";
-                text += "And You travel for " + duraction + ",\n";
+                tvTitle.setText("By driving, you...");
+                String text = "Produce " + emissons + ",\n";
+                text += "Burn " + calories + " calories,\n";
+                text += "Spend " + cost + " in gas money,\n";
+                text += "Travel " + distance + " km,\n";
+                text += "Travel for " + duraction + ",\n";
                 tvText.setText(text);
             } break;
         }
