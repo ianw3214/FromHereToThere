@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Calculation for caloriesBurned
         int caloriesSaved = caloriesPerKm * metres;
+    }
 
     public void searchAndDisplay(String origin, String destination){
         Bundle bundle = new Bundle();
