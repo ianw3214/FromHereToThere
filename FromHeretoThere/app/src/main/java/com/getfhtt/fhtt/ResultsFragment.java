@@ -149,4 +149,8 @@ public class ResultsFragment extends Fragment {
 
         return caloriesSaved;
     }
+
+    public int restingCals (String minutes) {
+        return Integer.parseInt(minutes);
+    }
 }
