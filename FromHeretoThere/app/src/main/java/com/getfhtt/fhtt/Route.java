@@ -98,6 +98,26 @@ public class Route {
         return (String) route.get("copyrights");
     }
 
+    // Returns the walking distance of the route
+    public Long getWalkingDistance(){
+        Long result = 0L;
+        JSONArray routes = (JSONArray) data.get("routes");
+        JSONObject route = (JSONObject) routes.get(0);
+        JSONArray legs = (JSONArray) route.get("legs");
+        JSONObject leg = (JSONObject) legs.get(0);
+        JSONArray steps = (JSONArray) leg.get("steps");
+        for(int i = 0; i < steps.size(); i++){
+            JSONObject current = (JSONObject) steps.get(i);
+            String key = (String) current.get("travel_mode");
+            if(key.equals("WALKING")){
+                JSONObject distance = (JSONObject) current.get("duration");
+                Long addition = (Long) distance.get("value");
+                result += addition;
+            }
+        }
+        return result;
+    }
+
     //Checks if route data was successfully loaded
     public Boolean isLoaded() {
         return data != null;
