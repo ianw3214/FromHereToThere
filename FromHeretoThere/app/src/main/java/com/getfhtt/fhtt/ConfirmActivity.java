@@ -42,7 +42,7 @@ public class ConfirmActivity extends AppCompatActivity {
             case "walking":{
                 tvTitle.setText("By walking, you...");
                 String text = "Avoid emitting " + emissons + " over driving\n";
-                text += "Burn " + calories + " calories\n";
+                text += "Burn " + calories + " calories (passive and active)\n";
                 text += "Save " + cost + " in gas money\n";
                 text += "Travel " + distance + " km in " + duraction + "";
                 tvText.setText(text);
@@ -50,7 +50,7 @@ public class ConfirmActivity extends AppCompatActivity {
             case "bicycling": {
                 tvTitle.setText("By biking, you...");
                 String text = "Avoid emitting " + emissons + " over driving\n";
-                text += "Burn " + calories + " calories\n";
+                text += "Burn " + calories + " calories (passive and active)\n";
                 text += "Save " + cost + " in gas money\n";
                 text += "Travel " + distance + " km in " + duraction + "";
                 tvText.setText(text);
@@ -58,8 +58,8 @@ public class ConfirmActivity extends AppCompatActivity {
             case "transit": {
                 tvTitle.setText("By taking public transit, you...");
                 String text = "Burn less fossil fuel than if you drove a car (" + emissons + ")\n";
-                text += "Burn " + calories + " calories\n";
-                text += "Save a little less than " + cost + " in gas money\n";
+                text += "Burn " + calories + " calories (passive and active)\n";
+                text += "Avoid paying " + cost + " in gas\n";
                 text += "Travel " + distance + " km in " + duraction + "";
                 tvText.setText(text);
             } break;
@@ -67,7 +67,7 @@ public class ConfirmActivity extends AppCompatActivity {
             default: {
                 tvTitle.setText("By driving, you...");
                 String text = "Produce " + emissons + "\n";
-                text += "Burn " + calories + " calories\n";
+                text += "Burn " + calories + " calories (passively)\n";
                 text += "Spend " + cost + " in gas money\n";
                 text += "Travel " + distance + " km in " + duraction + "";
                 tvText.setText(text);

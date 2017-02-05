@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void searchAndDisplay(String origin, String destination) {
         //getSupportActionBar().show();
-        getSupportActionBar().setTitle("Trip Details");
         Bundle bundle = new Bundle();
         bundle.putString("origin", origin);
         bundle.putString("destination", destination);
@@ -33,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .addToBackStack(null)
                 .add(R.id.flFragment, rfResults).commit();
+        getSupportActionBar().setTitle("Trip Details");
     }
 
     public void showConfirm(Bundle data) {
