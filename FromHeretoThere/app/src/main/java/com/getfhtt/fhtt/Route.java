@@ -23,8 +23,8 @@ import java.net.URL;
 public class Route {
 
     JSONObject data;
+    JSONObject elevationData;
     DataLoadedListener listener;
-
 
     public Route(String origin, String destination, String type) {
         this.listener = null;
@@ -119,11 +119,11 @@ public class Route {
     }
 
     // Returns the fare fee if found
-    public int getFare(){
+    public int getFare() {
         JSONArray routes = (JSONArray) data.get("routes");
         JSONObject route = (JSONObject) routes.get(0);
         JSONObject legs = (JSONObject) route.get("fare");
-        if(legs != null){
+        if (legs != null) {
             int amount = (int) legs.get("value");
             return amount;
         }
@@ -136,6 +136,22 @@ public class Route {
     }
 
     private final String USER_AGENT = "Mozilla/5.0";
+
+    public JSONObject getStart(){
+        JSONArray routes = (JSONArray) data.get("routes");
+        JSONObject route = (JSONObject) routes.get(0);
+        JSONArray legs = (JSONArray) route.get("legs");
+        JSONObject leg = (JSONObject) legs.get(0);
+        return (JSONObject) leg.get("start_location");
+    }
+
+    public JSONObject getEnd(){
+        JSONArray routes = (JSONArray) data.get("routes");
+        JSONObject route = (JSONObject) routes.get(0);
+        JSONArray legs = (JSONArray) route.get("legs");
+        JSONObject leg = (JSONObject) legs.get(0);
+        return (JSONObject) leg.get("end_location");
+    }
 
     public interface DataLoadedListener {
         // This interface is used to define the UserLoaded listener, which is used to delay activities until Firebase responds
