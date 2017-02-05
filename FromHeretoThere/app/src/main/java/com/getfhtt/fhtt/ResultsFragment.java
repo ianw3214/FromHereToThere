@@ -140,6 +140,12 @@ public class ResultsFragment extends Fragment {
                     }else {
                         itemloaded = true;
                         cTransit.setVisibility(View.VISIBLE);
+                        int fare = myTravel.getFare();
+                        if(fare < 0){
+                            cTransit.setCost("Unknown cost");
+                        }else{
+                            cTransit.setCost("$" + fare);
+                        }
                         cTransit.setText(myTravel.getTravelTime() + " minutes total\n" + myTravel.getWalkingTime()+ " minutes physical activity\n"+ calories(myTravel.getDistance()/1000)+" calories");
                     }
                     loadeditems++;
