@@ -99,7 +99,7 @@ public class Route {
     }
 
     // Returns the walking distance of the route
-    public Long getWalkingDistance(){
+    public Long getWalkingTime(){
         Long result = 0L;
         JSONArray routes = (JSONArray) data.get("routes");
         JSONObject route = (JSONObject) routes.get(0);

@@ -131,7 +131,7 @@ public class ResultsFragment extends Fragment {
                         llLoading.setVisibility(View.GONE);
                         rlTopBar.setVisibility(View.VISIBLE);
                         cTransit.setVisibility(View.VISIBLE);
-                        cTransit.setText(myTravel.getTravelTime() + " minutes total\n" + myTravel.getTravelTime()+ " physical activity\n"+ calories(myTravel.getDistance()/1000)+" calories");
+                        cTransit.setText(myTravel.getTravelTime() + " minutes total\n" + myTravel.getWalkingTime()+ " physical activity\n"+ calories(myTravel.getDistance()/1000)+" calories");
                     }
                 }
             }
@@ -151,7 +151,7 @@ public class ResultsFragment extends Fragment {
                         rlTopBar.setVisibility(View.VISIBLE);
                         cDriving.setVisibility(View.VISIBLE);
                         cDriving.setCost("$"+cost(myDriving.getDistance()/1000+""));
-                        cDriving.setText(myDriving.getTravelTime() + " minutes total\n" + myDriving.getTravelTime()+ " physical activity\n"+ myDriving.getTravelTimeMin() +" calories");
+                        cDriving.setText(myDriving.getTravelTime() + " minutes total\n" + myDriving.getWalkingTime()+ " physical activity\n"+ myDriving.getTravelTimeMin() +" calories");
                     }
                 }
             }
