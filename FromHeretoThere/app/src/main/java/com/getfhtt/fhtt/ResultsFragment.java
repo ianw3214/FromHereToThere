@@ -66,18 +66,46 @@ public class ResultsFragment extends Fragment {
         String destination = getArguments().getString("destination");
 
         final NavigateCard cWalking = (NavigateCard) myView.findViewById(R.id.cWalking);
-        NavigateCard cBiking = (NavigateCard) myView.findViewById(R.id.cBiking);
-        NavigateCard cTransit = (NavigateCard) myView.findViewById(R.id.cTransit);
-        NavigateCard cDriving = (NavigateCard) myView.findViewById(R.id.cDriving);
+        final NavigateCard cBiking = (NavigateCard) myView.findViewById(R.id.cBiking);
+        final NavigateCard cTransit = (NavigateCard) myView.findViewById(R.id.cTransit);
+        final NavigateCard cDriving = (NavigateCard) myView.findViewById(R.id.cDriving);
 
         TextView tvInfo = (TextView) myView.findViewById(R.id.tvInfo);
 
+        final Route myWalking = new Route(origin, destination, "walking");
+        myWalking.setDataLoadedListener(new Route.DataLoadedListener() {
+            @Override
+            public void onDataLoaded() {
+                if(myWalking.isLoaded()){
+                    cWalking.setText(myWalking.getTravelTime() + " minutes total\n" + myWalking.getTravelTime()+ " minutes physical activity\n"+ calories(myWalking.getDistance())+"Some amount of calories");
+                }
+            }
+        });
+        final Route myBiking = new Route(origin, destination, "bicycling");
+        myBiking.setDataLoadedListener(new Route.DataLoadedListener() {
+            @Override
+            public void onDataLoaded() {
+                if(myBiking.isLoaded()){
+                    cBiking.setText(myBiking.getTravelTime() + " minutes total\n" + myBiking.getTravelTime()+ " minutes physical activity\n"+ calories(myBiking.getDistance())+"Some amount of calories");
+                }
+            }
+        });
         final Route myTravel = new Route(origin, destination, "transit");
         myTravel.setDataLoadedListener(new Route.DataLoadedListener() {
             @Override
             public void onDataLoaded() {
                 if(myTravel.isLoaded()){
-                    cWalking.setText(myTravel.getTravelTime() + " minutes total\n" + myTravel.getTravelTime()+ " minutes physical activity\n"+ calories(myTravel.getDistance())+"Some amount of calories");
+                    cTransit.setText(myTravel.getTravelTime() + " minutes total\n" + myTravel.getTravelTime()+ " minutes physical activity\n"+ calories(myTravel.getDistance())+"Some amount of calories");
+                }
+            }
+        });
+        final Route myDriving = new Route(origin, destination, "driving");
+        myDriving.setDataLoadedListener(new Route.DataLoadedListener() {
+            @Override
+            public void onDataLoaded() {
+                if(myDriving.isLoaded()){
+                    cDriving.setCost("$"+cost(myDriving.getDistance()/1000+""));
+                    cDriving.setText(myDriving.getTravelTime() + " minutes total\n" + myDriving.getTravelTime()+ " minutes physical activity\n"+ calories(myDriving.getDistance())+"Some amount of calories");
                 }
             }
         });
