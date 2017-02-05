@@ -41,7 +41,7 @@ public class ConfirmActivity extends AppCompatActivity {
         switch(mode){
             case "walking":{
                 tvTitle.setText("By walking, you...");
-                String text = "Save " + emissons + " over driving\n";
+                String text = "Avoid emitting " + emissons + " over driving\n";
                 text += "Burn " + calories + " calories\n";
                 text += "Save " + cost + " in gas money\n";
                 text += "Travel " + distance + " km in " + duraction + "";
@@ -49,7 +49,7 @@ public class ConfirmActivity extends AppCompatActivity {
             } break;
             case "bicycling": {
                 tvTitle.setText("By biking, you...");
-                String text = "Save " + emissons + " over driving\n";
+                String text = "Avoid emitting " + emissons + " over driving\n";
                 text += "Burn " + calories + " calories\n";
                 text += "Save " + cost + " in gas money\n";
                 text += "Travel " + distance + " km in " + duraction + "";
