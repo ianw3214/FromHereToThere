@@ -19,12 +19,12 @@ public class MainActivity extends AppCompatActivity {
         int metres = Integer.parseInt(distance);
 
         //Constants for Calculations
-        float costPerKm = 0.106;
+        double costPerKm = 0.106;
         int emissionsPerKm = 255;
         int caloriesPerKm = 112;
 
         //Calculation for money saved
-        float moneySaved = costPerKm * metres;
+        double moneySaved = costPerKm * metres;
 
         //Calculation for emissions saved
         int emissionsSaved = emissionsPerKm * metres;
