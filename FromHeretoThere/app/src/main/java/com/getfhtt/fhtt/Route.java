@@ -119,12 +119,12 @@ public class Route {
     }
 
     // Returns the fare fee if found
-    public int getFare() {
+    public long getFare() {
         JSONArray routes = (JSONArray) data.get("routes");
         JSONObject route = (JSONObject) routes.get(0);
         JSONObject legs = (JSONObject) route.get("fare");
         if (legs != null) {
-            int amount = (int) legs.get("value");
+            long amount = (long) legs.get("value");
             return amount;
         }
         return -1;

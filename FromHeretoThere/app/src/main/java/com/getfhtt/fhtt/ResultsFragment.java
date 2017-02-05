@@ -136,19 +136,19 @@ public class ResultsFragment extends Fragment {
                                 externalLink(myWalking.getStartAddress(), myWalking.getEndAddress());
                             }
                         });
-                    }
-                    // get the elevation data
-                    JSONObject start = myBiking.getStart();
-                    JSONObject end = myBiking.getEnd();
-                    final ElevationRoute elevationData = new ElevationRoute(start, end);
-                    elevationData.setDataLoadedListener(new ElevationRoute.DataLoadedListener() {
-                        @Override
-                        public void onDataLoaded() {
-                            if (elevationData.isLoaded()) {
-                                cBiking.setText(calories(myBiking.getDistance() / 1000) + " calories burned\n" + myBiking.getTravelTime() + " of physical activity\n" + myBiking.getTravelTime() + " total\n" + ((double) Math.round(elevationData.getElevation() * 100d) / 100d) + "m elevation change" );
+                        // get the elevation data
+                        JSONObject start = myBiking.getStart();
+                        JSONObject end = myBiking.getEnd();
+                        final ElevationRoute elevationData = new ElevationRoute(start, end);
+                        elevationData.setDataLoadedListener(new ElevationRoute.DataLoadedListener() {
+                            @Override
+                            public void onDataLoaded() {
+                                if (elevationData.isLoaded()) {
+                                    cBiking.setText(calories(myBiking.getDistance() / 1000) + " calories burned\n" + myBiking.getTravelTime() + " of physical activity\n" + myBiking.getTravelTime() + " total\n" + ((double) Math.round(elevationData.getElevation() * 100d) / 100d) + "m elevation change" );
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
                     loadeditems++;
                     updateLoadState();
                 }
@@ -175,7 +175,7 @@ public class ResultsFragment extends Fragment {
                                 externalLink(myWalking.getStartAddress(), myWalking.getEndAddress());
                             }
                         });
-                        int fare = myTravel.getFare();
+                        long fare = myTravel.getFare();
                         if (fare < 0) {
                             cTransit.setCost("Unknown cost");
                         } else {
