@@ -11,5 +11,6 @@ public class SplashActivity extends Activity {
         super.onCreate(savedInstanceState);
         //Load main page
         startActivity(new Intent(SplashActivity.this, MainActivity.class));
+        finish();
     }
 }
