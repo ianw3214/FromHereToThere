@@ -13,6 +13,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.simple.JSONObject;
+
 import com.getfhtt.fhtt.models.NavigateCard;
 
 /**
@@ -135,6 +137,18 @@ public class ResultsFragment extends Fragment {
                             }
                         });
                     }
+                    // get the elevation data
+                    JSONObject start = myBiking.getStart();
+                    JSONObject end = myBiking.getEnd();
+                    final ElevationRoute elevationData = new ElevationRoute(start, end);
+                    elevationData.setDataLoadedListener(new ElevationRoute.DataLoadedListener(){
+                        @Override
+                        public void onDataLoaded(){
+                            if(elevationData.isLoaded()){
+                                cBiking.setText(myBiking.getTravelTime() + " total\n" + myBiking.getTravelTime()+ " of physical activity\n"+elevationData.getElevation() + " m\n"+ calories(myBiking.getDistance()/1000)+" calories");
+                            }
+                        }
+                    });
                     loadeditems++;
                     updateLoadState();
                 }
