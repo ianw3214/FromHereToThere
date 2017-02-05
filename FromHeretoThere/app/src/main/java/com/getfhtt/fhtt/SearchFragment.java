@@ -16,7 +16,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 
 public class SearchFragment extends Fragment implements
-        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -84,14 +84,14 @@ public class SearchFragment extends Fragment implements
         bSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!etFrom.getText().toString().equals("") || !etTo.getText().toString().equals("")){
+                if (!etFrom.getText().toString().equals("") || !etTo.getText().toString().equals("")) {
                     if (etFrom.getText().toString().equals("Current Location")) {
                         myActivity.searchAndDisplay(String.valueOf(mLastLocation.getLatitude()) + "," + String.valueOf(mLastLocation.getLongitude()), etTo.getText().toString());
                     } else {
                         myActivity.searchAndDisplay(etFrom.getText().toString(), etTo.getText().toString());
                     }
-                }else{
-                    Toast.makeText(getActivity(),"Please enter origin and destination", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), "Please enter origin and destination", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -100,9 +100,9 @@ public class SearchFragment extends Fragment implements
         etFrom.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus && etFrom.getText().toString().equals("Current Location")){
+                if (hasFocus && etFrom.getText().toString().equals("Current Location")) {
                     etFrom.setText("");
-                }else if(!hasFocus && etFrom.getText().toString().equals("")){
+                } else if (!hasFocus && etFrom.getText().toString().equals("") && mLastLocation != null) {
                     etFrom.setText("Current Location");
                 }
             }
@@ -119,6 +119,7 @@ public class SearchFragment extends Fragment implements
 
         return myView;
     }
+
     @Override
     public void onConnectionSuspended(int i) {
 
@@ -138,9 +139,10 @@ public class SearchFragment extends Fragment implements
                 etFrom.setText("Current Location");
                 etTo.requestFocus();
             }
-        }catch(SecurityException e){
+        } catch (SecurityException e) {
         }
     }
+
     @Override
     public void onDetach() {
         super.onDetach();
