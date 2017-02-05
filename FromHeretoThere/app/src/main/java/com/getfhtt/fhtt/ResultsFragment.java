@@ -172,6 +172,7 @@ public class ResultsFragment extends Fragment {
                     loadeditems++;
                     updateLoadState();
                 }
+                
             }
         });
         return myView;
