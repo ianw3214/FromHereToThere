@@ -146,7 +146,7 @@ public class ResultsFragment extends Fragment {
                         }else{
                             cTransit.setCost("$" + fare);
                         }
-                        cTransit.setText(myTravel.getTravelTime() + " minutes total\n" + myTravel.getWalkingTime()+ " minutes physical activity\n"+ calories(myTravel.getDistance()/1000)+" calories");
+                        cTransit.setText(myTravel.getTravelTime() + " minutes total\n" + myTravel.getWalkingTime()+ " minutes physical activity\n"+ myTravel.getTravelTimeMin()+" calories");
                     }
                     loadeditems++;
                     updateLoadState();
