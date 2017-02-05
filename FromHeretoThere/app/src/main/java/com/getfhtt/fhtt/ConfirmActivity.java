@@ -13,6 +13,7 @@ public class ConfirmActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_confirm);
         Bundle extras = getIntent().getExtras();
         // get the data from the previous state to display on screen
