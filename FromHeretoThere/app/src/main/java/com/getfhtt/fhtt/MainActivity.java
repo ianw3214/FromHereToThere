@@ -1,19 +1,13 @@
 package com.getfhtt.fhtt;
 
-import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.location.Location;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationServices;
-
-public class MainActivity extends AppCompatActivity{
-
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +20,7 @@ public class MainActivity extends AppCompatActivity{
                 .add(R.id.flFragment, mySearchFragment).commit();
     }
 
-    public void searchAndDisplay(String origin, String destination){
+    public void searchAndDisplay(String origin, String destination) {
         //getSupportActionBar().show();
         getSupportActionBar().setTitle("Trip Details");
         Bundle bundle = new Bundle();
@@ -41,17 +35,18 @@ public class MainActivity extends AppCompatActivity{
                 .add(R.id.flFragment, rfResults).commit();
     }
 
-    public void showConfirm(Bundle data){
-        Intent in = new Intent(MainActivity.this,ConfirmActivity.class);
+    public void showConfirm(Bundle data) {
+        Intent in = new Intent(MainActivity.this, ConfirmActivity.class);
         in.putExtras(data);
         startActivity(in);
     }
 
-    public void goBack(){
+    public void goBack() {
         //getSupportActionBar().hide();
         getSupportActionBar().setTitle("");
         getSupportFragmentManager().popBackStackImmediate();
     }
+
     @Override
     public void onBackPressed() {
         getSupportActionBar().setTitle("");

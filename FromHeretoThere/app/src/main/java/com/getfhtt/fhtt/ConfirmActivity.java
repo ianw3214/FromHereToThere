@@ -44,8 +44,7 @@ public class ConfirmActivity extends AppCompatActivity {
                 String text = "Save " + emissons + " over driving\n";
                 text += "Burn " + calories + " calories\n";
                 text += "Save " + cost + " in gas money\n";
-                text += "Travel " + distance + " km\n";
-                text += "Travel for " + duraction + "";
+                text += "Travel " + distance + " km in " + duraction + "";
                 tvText.setText(text);
             } break;
             case "bicycling": {
@@ -53,8 +52,7 @@ public class ConfirmActivity extends AppCompatActivity {
                 String text = "Save " + emissons + " over driving\n";
                 text += "Burn " + calories + " calories\n";
                 text += "Save " + cost + " in gas money\n";
-                text += "Travel " + distance + " km\n";
-                text += "Travel for " + duraction + "";
+                text += "Travel " + distance + " km in " + duraction + "";
                 tvText.setText(text);
             } break;
             case "transit": {
@@ -62,8 +60,7 @@ public class ConfirmActivity extends AppCompatActivity {
                 String text = "Burn less fossil fuel than if you drove a car (" + emissons + ")\n";
                 text += "Burn " + calories + " calories\n";
                 text += "Save a little less than " + cost + " in gas money\n";
-                text += "Travel " + distance + " km\n";
-                text += "Travel for " + duraction + "";
+                text += "Travel " + distance + " km in " + duraction + "";
                 tvText.setText(text);
             } break;
             case "driving":
@@ -72,8 +69,7 @@ public class ConfirmActivity extends AppCompatActivity {
                 String text = "Produce " + emissons + "\n";
                 text += "Burn " + calories + " calories\n";
                 text += "Spend " + cost + " in gas money\n";
-                text += "Travel " + distance + " km\n";
-                text += "Travel for " + duraction + "";
+                text += "Travel " + distance + " km in " + duraction + "";
                 tvText.setText(text);
             } break;
         }

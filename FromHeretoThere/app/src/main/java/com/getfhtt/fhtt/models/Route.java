@@ -1,9 +1,7 @@
-package com.getfhtt.fhtt;
+package com.getfhtt.fhtt.models;
 
 import android.os.AsyncTask;
 import android.util.Log;
-
-import com.getfhtt.fhtt.models.User;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;

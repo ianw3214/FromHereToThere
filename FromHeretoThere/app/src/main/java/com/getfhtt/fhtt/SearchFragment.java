@@ -1,9 +1,12 @@
 package com.getfhtt.fhtt;
 
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -116,7 +119,14 @@ public class SearchFragment extends Fragment implements
                     .addApi(LocationServices.API)
                     .build();
         }
+        if (ContextCompat.checkSelfPermission(getActivity(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
 
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    1);
+        }
         return myView;
     }
 
@@ -140,6 +150,29 @@ public class SearchFragment extends Fragment implements
                 etTo.requestFocus();
             }
         } catch (SecurityException e) {
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    try {
+                        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+                                mGoogleApiClient);
+                        if (mLastLocation != null) {
+                            etFrom.setText("Current Location");
+                            etTo.requestFocus();
+                        }
+                    } catch (SecurityException e) {
+                    }
+                }
+                return;
+            }
         }
     }
 
