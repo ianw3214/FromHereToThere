@@ -101,7 +101,7 @@ public class ResultsFragment extends Fragment {
                         itemloaded = true;
                         cWalking.setVisibility(View.VISIBLE);
                         tvInfo.setText("From: "+ myWalking.getStartAddress() + "\nTo: " + myWalking.getEndAddress() + "\n~" + myWalking.getDistance()/1000 + "km depending on mode of transport");
-                        cWalking.setText(myWalking.getTravelTime() + " total\n" + myWalking.getTravelTime()+ " of physical activity\n"+ calories(myWalking.getDistance()/1000)+" calories");
+                        cWalking.setText(myWalking.getTravelTime() + " total\n" + myWalking.getTravelTime()+ " of physical activity\n"+ calories(myWalking.getDistance()/1000)+" calories\n 0 emissions");
                     }
                     loadeditems++;
                     updateLoadState();
@@ -120,7 +120,7 @@ public class ResultsFragment extends Fragment {
                     }else {
                         itemloaded = true;
                         cBiking.setVisibility(View.VISIBLE);
-                        cBiking.setText(myBiking.getTravelTime() + " total\n" + myBiking.getTravelTime()+ " of physical activity\n"+ calories(myBiking.getDistance()/1000)+" calories");
+                        cBiking.setText(myBiking.getTravelTime() + " total\n" + myBiking.getTravelTime()+ " of physical activity\n"+ calories(myBiking.getDistance()/1000)+" calories\n" + "0 emissions");
                     }
                     loadeditems++;
                     updateLoadState();
@@ -167,7 +167,7 @@ public class ResultsFragment extends Fragment {
                         itemloaded = true;
                         cDriving.setVisibility(View.VISIBLE);
                         cDriving.setCost("$"+cost(myDriving.getDistance()/1000+""));
-                        cDriving.setText(myDriving.getTravelTime() + " total\n" + myDriving.getWalkingTime() + " physical activity\n"+ myDriving.getTravelTimeMin() +" calories");
+                        cDriving.setText(myDriving.getTravelTime() + " total\n" + myDriving.getWalkingTime() + " mins physical activity\n"+ myDriving.getTravelTimeMin() +" calories\n" + (float) emissions(myDriving.getDistance()/1000)/1000 + " kg of CO" + '\u2082');
                     }
                     loadeditems++;
                     updateLoadState();
