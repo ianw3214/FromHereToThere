@@ -1,6 +1,7 @@
 package com.getfhtt.fhtt;
 
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -38,6 +39,12 @@ public class MainActivity extends AppCompatActivity{
         getSupportFragmentManager().beginTransaction()
                 .addToBackStack(null)
                 .add(R.id.flFragment, rfResults).commit();
+    }
+
+    public void showConfirm(Bundle data){
+        Intent in = new Intent(MainActivity.this,ConfirmActivity.class);
+        in.putExtras(data);
+        startActivity(in);
     }
 
     public void goBack(){

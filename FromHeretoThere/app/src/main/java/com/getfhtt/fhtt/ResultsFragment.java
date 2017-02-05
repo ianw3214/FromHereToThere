@@ -38,6 +38,8 @@ public class ResultsFragment extends Fragment {
     LinearLayout llLoading;
     MainActivity myMain;
 
+    String sEmissions, sCost;
+
     public ResultsFragment() {
         // Required empty public constructor
     }
@@ -102,12 +104,12 @@ public class ResultsFragment extends Fragment {
                         tvCopyright.setText(myWalking.getCopyright());
                         itemloaded = true;
                         cWalking.setVisibility(View.VISIBLE);
-                        tvInfo.setText("~" + myWalking.getDistance() / 1000 + "km depending on mode of transport\nFrom: " + myWalking.getStartAddress() + "\nTo: " + myWalking.getEndAddress() );
+                        tvInfo.setText("~" + myWalking.getDistance() / 1000 + "km depending on mode of transport\nFrom: " + myWalking.getStartAddress() + "\nTo: " + myWalking.getEndAddress());
                         cWalking.setText(calories(myWalking.getDistance() / 1000) + " calories burned\n" + myWalking.getTravelTime() + " of physical activity\n" + myWalking.getTravelTime() + " total");
                         cWalking.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                externalLink(myWalking.getStartAddress(), myWalking.getEndAddress());
+                                externalLink(myWalking.getStartAddress(), myWalking.getEndAddress(), "walking", myWalking.getDistance() / 1000 + "", myWalking.getTravelTime(), Integer.parseInt("" + calories(myWalking.getDistance() / 1000)));
                             }
                         });
                     }
@@ -133,7 +135,7 @@ public class ResultsFragment extends Fragment {
                         cBiking.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                externalLink(myWalking.getStartAddress(), myWalking.getEndAddress());
+                                externalLink(myBiking.getStartAddress(), myBiking.getEndAddress(), "bicycling", myBiking.getDistance() / 1000 + "", myBiking.getTravelTime(), Integer.parseInt("" + calories(myBiking.getDistance() / 1000)));
                             }
                         });
                         // get the elevation data
@@ -144,7 +146,7 @@ public class ResultsFragment extends Fragment {
                             @Override
                             public void onDataLoaded() {
                                 if (elevationData.isLoaded()) {
-                                    cBiking.setText(calories(myBiking.getDistance() / 1000) + " calories burned\n" + myBiking.getTravelTime() + " of physical activity\n" + myBiking.getTravelTime() + " total\n" + ((double) Math.round(elevationData.getElevation() * 100d) / 100d) + "m elevation change" );
+                                    cBiking.setText(calories(myBiking.getDistance() / 1000) + " calories burned\n" + myBiking.getTravelTime() + " of physical activity\n" + myBiking.getTravelTime() + " total\n" + ((double) Math.round(elevationData.getElevation() * 100d) / 100d) + "m elevation change");
                                 }
                             }
                         });
@@ -168,11 +170,11 @@ public class ResultsFragment extends Fragment {
                         tvCopyright.setText(myTravel.getCopyright());
                         itemloaded = true;
                         cTransit.setVisibility(View.VISIBLE);
-                        cTransit.setText((myTravel.getWalkingTime()*190/60 + Integer.parseInt(myTravel.getTravelTimeMin())) + " calories burned\n" + myTravel.getWalkingTime() + " minutes physical activity\n" + myTravel.getTravelTime() + " minutes total");
+                        cTransit.setText((myTravel.getWalkingTime() * 190 / 60 + Integer.parseInt(myTravel.getTravelTimeMin())) + " calories burned\n" + myTravel.getWalkingTime() + " minutes physical activity\n" + myTravel.getTravelTime() + " minutes total");
                         cTransit.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                externalLink(myWalking.getStartAddress(), myWalking.getEndAddress());
+                                externalLink(myTravel.getStartAddress(), myTravel.getEndAddress(), "transit", myTravel.getDistance() / 1000 + "", myTravel.getTravelTime(), Integer.parseInt("" + (myTravel.getWalkingTime() * 190 / 60 + Integer.parseInt(myTravel.getTravelTimeMin()))));
                             }
                         });
                         long fare = myTravel.getFare();
@@ -206,11 +208,13 @@ public class ResultsFragment extends Fragment {
                         cDriving.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                externalLink(myWalking.getStartAddress(), myWalking.getEndAddress());
+                                externalLink(myDriving.getStartAddress(), myDriving.getEndAddress(), "driving", myDriving.getDistance() / 1000 + "", myDriving.getTravelTime(), Integer.parseInt("" + myDriving.getTravelTimeMin()));
                             }
                         });
                         cDriving.setCost("$" + cost(myDriving.getDistance() / 1000 + ""));
                         //cDriving.setEmission((float) emissions(myDriving.getDistance()/1000)/1000 + "kg CO" + '\u2082');
+                        sEmissions = (float) emissions(myDriving.getDistance() / 1000) / 1000 + "kg CO" + '\u2082';
+                        sCost = "$" + cost(myDriving.getDistance() / 1000 + "");
                     }
                     loadeditems++;
                     updateLoadState();
@@ -221,11 +225,18 @@ public class ResultsFragment extends Fragment {
         return myView;
     }
 
-    public void externalLink(String origin, String destination) {
-        origin = origin.replace(" ", "+");
-        destination = destination.replace(" ", "+");
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/maps/dir/" + origin + "/" + destination));
-        startActivity(browserIntent);
+    public void externalLink(String origin, String destination, String mode, String distance, String duration, int Calories) {
+        Bundle data = new Bundle();
+        data.putString("url", "https://www.google.com/maps/dir/" + origin + "/" + destination);
+        data.putString("duration", duration);
+        data.putString("distance", distance);
+        data.putInt("calories", Calories);
+        data.putString("mode", mode);
+        data.putString("carEmissions", sEmissions);
+        data.putString("carCost", sCost);
+
+        myMain.showConfirm(data);
+
     }
 
     public void updateLoadState() {
