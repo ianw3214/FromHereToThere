@@ -65,18 +65,22 @@ public class ResultsFragment extends Fragment {
         String origin = getArguments().getString("origin");
         String destination = getArguments().getString("destination");
 
-        NavigateCard cWalking = (NavigateCard) myView.findViewById(R.id.cWalking);
+        final NavigateCard cWalking = (NavigateCard) myView.findViewById(R.id.cWalking);
         NavigateCard cBiking = (NavigateCard) myView.findViewById(R.id.cBiking);
         NavigateCard cTransit = (NavigateCard) myView.findViewById(R.id.cTransit);
         NavigateCard cDriving = (NavigateCard) myView.findViewById(R.id.cDriving);
 
         TextView tvInfo = (TextView) myView.findViewById(R.id.tvInfo);
 
-        Route myTravel = new Route("Queen's University, Kingston, Ontario", "Cateraqui Center, Kingston, Ontario", "transit");
-
-        if(myTravel.isLoaded()){
-            cWalking.setText(myTravel.getTravelTime() + "minutes total/\n" + myTravel.getTravelTime()+ "minutes physical activity/\n"+ "Some amount of calories");
-        }
+        final Route myTravel = new Route(origin, destination, "transit");
+        myTravel.setDataLoadedListener(new Route.DataLoadedListener() {
+            @Override
+            public void onDataLoaded() {
+                if(myTravel.isLoaded()){
+                    cWalking.setText(myTravel.getTravelTime() + " minutes total/\n" + myTravel.getTravelTime()+ " minutes physical activity/\n"+ "Some amount of calories");
+                }
+            }
+        });
         return myView;
     }
 
