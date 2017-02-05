@@ -94,7 +94,7 @@ public class ResultsFragment extends Fragment {
                         cWalking.setVisibility(View.VISIBLE);
                         rlTopBar.setVisibility(View.VISIBLE);
                         tvInfo.setText("From: "+ myWalking.getStartAddress() + "\nTo: " + myWalking.getEndAddress() + "\n~" + myWalking.getDistance()/1000 + "km depending on mode of transport");
-                        cWalking.setText(myWalking.getTravelTime() + " minutes total\n" + myWalking.getTravelTime()+ " physical activity\n"+ calories(myWalking.getDistance()/1000)+" calories");
+                        cWalking.setText(myWalking.getTravelTime() + " total\n" + myWalking.getTravelTime()+ " of physical activity\n"+ calories(myWalking.getDistance()/1000)+" calories");
                     }
                 }
             }
@@ -112,7 +112,7 @@ public class ResultsFragment extends Fragment {
                         llLoading.setVisibility(View.GONE);
                         rlTopBar.setVisibility(View.VISIBLE);
                         cBiking.setVisibility(View.VISIBLE);
-                        cBiking.setText(myBiking.getTravelTime() + " minutes total\n" + myBiking.getTravelTime()+ " physical activity\n"+ calories(myBiking.getDistance()/1000)+" calories");
+                        cBiking.setText(myBiking.getTravelTime() + " total\n" + myBiking.getTravelTime()+ " of physical activity\n"+ calories(myBiking.getDistance()/1000)+" calories");
                     }
                 }
             }
@@ -131,7 +131,7 @@ public class ResultsFragment extends Fragment {
                         llLoading.setVisibility(View.GONE);
                         rlTopBar.setVisibility(View.VISIBLE);
                         cTransit.setVisibility(View.VISIBLE);
-                        cTransit.setText(myTravel.getTravelTime() + " minutes total\n" + myTravel.getTravelTime()+ " physical activity\n"+ calories(myTravel.getDistance()/1000)+" calories");
+                        cTransit.setText(myTravel.getTravelTime() + " total\n0 minutes of physical activity\n"+ calories(myTravel.getDistance()/1000)+" calories");
                     }
                 }
             }
@@ -151,7 +151,7 @@ public class ResultsFragment extends Fragment {
                         rlTopBar.setVisibility(View.VISIBLE);
                         cDriving.setVisibility(View.VISIBLE);
                         cDriving.setCost("$"+cost(myDriving.getDistance()/1000+""));
-                        cDriving.setText(myDriving.getTravelTime() + " minutes total\n" + myDriving.getTravelTime()+ " physical activity\n"+ myDriving.getTravelTimeMin() +" calories");
+                        cDriving.setText(myDriving.getTravelTime() + " total\n" + myDriving.getTravelTime()+ " physical activity\n"+ myDriving.getTravelTimeMin() +" calories");
                     }
                 }
             }
