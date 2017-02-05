@@ -115,7 +115,7 @@ public class Route {
                 result += addition;
             }
         }
-        return result;
+        return result/60;
     }
 
     // Returns the fare fee if found
