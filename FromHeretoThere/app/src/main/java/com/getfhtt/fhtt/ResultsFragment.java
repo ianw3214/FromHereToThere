@@ -82,8 +82,8 @@ public class ResultsFragment extends Fragment {
                     }else if(!myWalking.checkRoutes()){
                         cWalking.setVisibility(View.GONE);
                     }else {
-                        tvInfo.setText("From: " + myWalking.getStartAddress() + "\nTo: " + myWalking.getEndAddress() + "\n~" + myWalking.getDistance() / 1000 + "km depending on mode of transport");
-                        cWalking.setText(myWalking.getTravelTime() + " minutes total\n" + myWalking.getTravelTime() + " minutes physical activity\n" + calories(myWalking.getDistance() / 1000) + " calories");
+                        tvInfo.setText("From: "+ myWalking.getStartAddress() + "\nTo: " + myWalking.getEndAddress() + "\n~" + myWalking.getDistance()/1000 + "km depending on mode of transport");
+                        cWalking.setText(myWalking.getTravelTime() + " minutes total\n" + myWalking.getTravelTime()+ " physical activity\n"+ calories(myWalking.getDistance()/1000)+" calories");
                     }
                 }
             }
@@ -98,7 +98,7 @@ public class ResultsFragment extends Fragment {
                     }else if(!myBiking.checkRoutes()){
                         cBiking.setVisibility(View.GONE);
                     }else {
-                        cBiking.setText(myBiking.getTravelTime() + " minutes total\n" + myBiking.getTravelTime()+ " minutes physical activity\n"+ calories(myBiking.getDistance()/1000)+" calories");
+                        cBiking.setText(myBiking.getTravelTime() + " minutes total\n" + myBiking.getTravelTime()+ " physical activity\n"+ calories(myBiking.getDistance()/1000)+" calories");
                     }
                 }
             }
@@ -113,7 +113,7 @@ public class ResultsFragment extends Fragment {
                     }else if(!myTravel.checkRoutes()){
                         cTransit.setVisibility(View.GONE);
                     }else {
-                        cTransit.setText(myTravel.getTravelTime() + " minutes total\n" + myTravel.getWalkingDistance()/60+ " minutes physical activity\n"+ calories(myTravel.getDistance()/1000)+" calories");
+                        cTransit.setText(myTravel.getTravelTime() + " minutes total\n" + myTravel.getTravelTime()+ " physical activity\n"+ calories(myTravel.getDistance()/1000)+" calories");
                     }
                 }
             }
@@ -129,7 +129,7 @@ public class ResultsFragment extends Fragment {
                         cDriving.setVisibility(View.GONE);
                     }else {
                         cDriving.setCost("$"+cost(myDriving.getDistance()/1000+""));
-                        cDriving.setText(myDriving.getTravelTime() + " minutes total\n" + myDriving.getTravelTime()+ " minutes physical activity\n"+ calories(myDriving.getDistance()/1000)+" calories");
+                        cDriving.setText(myDriving.getTravelTime() + " minutes total\n" + myDriving.getTravelTime()+ " physical activity\n"+ calories(myDriving.getDistance()/1000)+" calories");
                     }
                 }
             }
@@ -172,5 +172,9 @@ public class ResultsFragment extends Fragment {
         long caloriesSaved = caloriesPerKm * metres;
 
         return caloriesSaved;
+    }
+
+    public int restingCals (String minutes) {
+        return Integer.parseInt(minutes);
     }
 }
