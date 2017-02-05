@@ -23,12 +23,10 @@ public class MainActivity extends AppCompatActivity{
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.flFragment, mySearchFragment).commit();
     }
-  
-    public void userStats(String distance) {
-        int metres = Integer.parseInt(distance);
 
     public void searchAndDisplay(String origin, String destination){
         getSupportActionBar().show();
+        getSupportActionBar().setTitle("Trip Options");
         Bundle bundle = new Bundle();
         bundle.putString("origin", origin);
         bundle.putString("destination", destination);
@@ -39,5 +37,11 @@ public class MainActivity extends AppCompatActivity{
         getSupportFragmentManager().beginTransaction()
                 .addToBackStack(null)
                 .add(R.id.flFragment, rfResults).commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        getSupportActionBar().hide();
+        super.onBackPressed();
     }
 }

@@ -4,7 +4,6 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,7 +91,7 @@ public class SearchFragment extends Fragment implements
                         myActivity.searchAndDisplay(etFrom.getText().toString(), etTo.getText().toString());
                     }
                 }else{
-                    Toast.makeText(getActivity(),"Please enter orgin and destination", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),"Please enter origin and destination", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -109,7 +108,6 @@ public class SearchFragment extends Fragment implements
             }
         });
 
-        Log.e("afds", "LOADED");
         // Create an instance of GoogleAPIClient.
         if (mGoogleApiClient == null) {
             mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
@@ -133,17 +131,14 @@ public class SearchFragment extends Fragment implements
 
     @Override
     public void onConnected(Bundle connectionHint) {
-        Log.e("MainActivity", "Google connected");
         try {
             mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                     mGoogleApiClient);
             if (mLastLocation != null) {
-                Log.e("MainActivity", "Location detected");
                 etFrom.setText("Current Location");
                 etTo.requestFocus();
             }
         }catch(SecurityException e){
-            Log.e("MainActivity", "Could not get locations because security");
         }
     }
     @Override
