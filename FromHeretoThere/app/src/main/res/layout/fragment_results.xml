@@ -48,7 +48,8 @@
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"
                 app:fc_text="35 minutes total\n35 minutes of physical activity\n200 calories"
-                app:fc_title="Walking" />
+                app:fc_title="Walking"
+                app:cardElevation="16dp" />
 
             <com.getfhtt.fhtt.models.NavigateCard
                 android:id="@+id/cBiking"
