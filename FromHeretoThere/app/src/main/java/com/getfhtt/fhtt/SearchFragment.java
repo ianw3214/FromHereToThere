@@ -84,7 +84,7 @@ public class SearchFragment extends Fragment implements
         bSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!etFrom.getText().toString().equals("") || !etTo.getText().toString().equals("")) {
+                if (!etFrom.getText().toString().equals("") && !etTo.getText().toString().equals("")) {
                     if (etFrom.getText().toString().equals("Current Location")) {
                         myActivity.searchAndDisplay(String.valueOf(mLastLocation.getLatitude()) + "," + String.valueOf(mLastLocation.getLongitude()), etTo.getText().toString());
                     } else {

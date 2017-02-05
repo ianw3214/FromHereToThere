@@ -4,5 +4,7 @@
         <attr name="fc_title" format="string" />
         <attr name="fc_text" format="string" />
         <attr name="fc_cost" format="string" />
+        <attr name="fc_emission" format="string" />
+        <attr name="fc_stars" format="integer" />
     </declare-styleable>
 </resources>
