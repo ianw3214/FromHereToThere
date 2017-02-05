@@ -1,5 +1,6 @@
 package com.getfhtt.fhtt;
 
+import android.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -15,6 +16,8 @@ public class MainActivity extends AppCompatActivity {
                 .add(R.id.flFragment, mySearchFragment).commit();
     }
 
+
+  
     public void userStats(String distance) {
         int metres = Integer.parseInt(distance);
 
@@ -32,5 +35,16 @@ public class MainActivity extends AppCompatActivity {
         //Calculation for caloriesBurned
         int caloriesSaved = caloriesPerKm * metres;
 
+    public void searchAndDisplay(String origin, String destination){
+        Bundle bundle = new Bundle();
+        bundle.putString("origin", origin);
+        bundle.putString("destination", destination);
+
+
+        ResultsFragment rfResults = new ResultsFragment();
+        rfResults.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction()
+                .addToBackStack(null)
+                .add(R.id.flFragment, rfResults).commit();
     }
 }

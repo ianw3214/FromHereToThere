@@ -13,12 +13,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryDark"
-        android:paddingTop="@dimen/activity_vertical_margin"
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin">
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin">
 
         <TextView
+            android:id="@+id/tvInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="From location\nTo location\n10km-16km depending on mode of transport"
@@ -31,11 +32,13 @@
         android:layout_below="@id/rlTopBar">
 
         <LinearLayout
+            android:id="@+id/llCardList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <com.getfhtt.fhtt.models.NavigateCard
+                android:id="@+id/cWalking"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
@@ -48,6 +51,7 @@
                 app:fc_title="Walking" />
 
             <com.getfhtt.fhtt.models.NavigateCard
+                android:id="@+id/cBiking"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
@@ -59,6 +63,7 @@
                 app:fc_title="Biking" />
 
             <com.getfhtt.fhtt.models.NavigateCard
+                android:id="@+id/cTransit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
@@ -71,6 +76,7 @@
                 app:fc_title="Public Transit" />
 
             <com.getfhtt.fhtt.models.NavigateCard
+                android:id="@+id/cDriving"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
