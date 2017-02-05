@@ -33,6 +33,7 @@ public class ConfirmActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 startActivity(browserIntent);
+                finish();
             }
         });
 

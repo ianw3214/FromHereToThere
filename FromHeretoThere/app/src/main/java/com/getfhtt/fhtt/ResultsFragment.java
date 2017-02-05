@@ -104,7 +104,7 @@ public class ResultsFragment extends Fragment {
                         tvCopyright.setText(myWalking.getCopyright());
                         itemloaded = true;
                         cWalking.setVisibility(View.VISIBLE);
-                        tvInfo.setText("~" + myWalking.getDistance() / 1000 + "km depending on mode of transport\nFrom: " + myWalking.getStartAddress() + "\nTo: " + myWalking.getEndAddress());
+                        tvInfo.setText("Distance: " + myWalking.getDistance() / 1000 + "km\nFrom: " + myWalking.getStartAddress() + "\nTo: " + myWalking.getEndAddress());
                         cWalking.setText(calories(myWalking.getDistance() / 1000) + " calories burned\n" + myWalking.getTravelTime() + " of physical activity\n" + myWalking.getTravelTime() + " total");
                         cWalking.setOnClickListener(new View.OnClickListener() {
                             @Override

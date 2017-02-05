@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tvText"
             android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:text="Continue"
+            android:text="Continue to directions"
             android:theme="@style/ColoredButton" />
     </RelativeLayout>
 </RelativeLayout>
