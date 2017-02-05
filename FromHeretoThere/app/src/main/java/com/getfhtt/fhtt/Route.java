@@ -54,6 +54,15 @@ public class Route {
         return (String) duration.get("text");
     }
 
+    public String getTravelTimeMin() {
+        JSONArray routes = (JSONArray) data.get("routes");
+        JSONObject route = (JSONObject) routes.get(0);
+        JSONArray legs = (JSONArray) route.get("legs");
+        JSONObject info = (JSONObject) legs.get(0);
+        JSONObject duration = (JSONObject) info.get("duration");
+        return (String) duration.get("value");
+    }
+
     // Returns the distance between two points based on travel mode
     public Long getDistance() {
         JSONArray routes = (JSONArray) data.get("routes");
