@@ -1,19 +1,31 @@
 package com.getfhtt.fhtt;
 
+import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 
-public class SearchFragment extends Fragment {
+public class SearchFragment extends Fragment implements
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    EditText etFrom, etTo;
+
+    GoogleApiClient mGoogleApiClient;
+    Location mLastLocation;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -51,24 +63,89 @@ public class SearchFragment extends Fragment {
 
     }
 
+    public void onStart() {
+        mGoogleApiClient.connect();
+        super.onStart();
+    }
+
+    public void onStop() {
+        mGoogleApiClient.disconnect();
+        super.onStop();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        final MainActivity myActivity = (MainActivity) getActivity();
         View myView = inflater.inflate(R.layout.fragment_search, container, false);
         Button bSearch = (Button) myView.findViewById(R.id.bSearch);
-        final EditText etFrom = (EditText) myView.findViewById(R.id.etFrom);
-        final EditText etTo = (EditText) myView.findViewById(R.id.etTo);
+        etFrom = (EditText) myView.findViewById(R.id.etFrom);
+        etTo = (EditText) myView.findViewById(R.id.etTo);
         bSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity myActivity = (MainActivity) getActivity();
-                myActivity.searchAndDisplay(etFrom.getText().toString(), etTo.getText().toString());
+                if(!etFrom.getText().toString().equals("") || !etTo.getText().toString().equals("")){
+                    if (etFrom.getText().toString().equals("Current Location")) {
+                        myActivity.searchAndDisplay(String.valueOf(mLastLocation.getLatitude()) + "," + String.valueOf(mLastLocation.getLongitude()), etTo.getText().toString());
+                    } else {
+                        myActivity.searchAndDisplay(etFrom.getText().toString(), etTo.getText().toString());
+                    }
+                }else{
+                    Toast.makeText(getActivity(),"Please enter orgin and destination", Toast.LENGTH_SHORT).show();
+                }
+
+
             }
         });
+        etFrom.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus && etFrom.getText().toString().equals("Current Location")){
+                    etFrom.setText("");
+                }else if(!hasFocus && etFrom.getText().toString().equals("")){
+                    etFrom.setText("Current Location");
+                }
+            }
+        });
+
+        Log.e("afds", "LOADED");
+        // Create an instance of GoogleAPIClient.
+        if (mGoogleApiClient == null) {
+            mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API)
+                    .build();
+        }
+
         return myView;
     }
+    @Override
+    public void onConnectionSuspended(int i) {
 
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    public void onConnected(Bundle connectionHint) {
+        Log.e("MainActivity", "Google connected");
+        try {
+            mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+                    mGoogleApiClient);
+            if (mLastLocation != null) {
+                Log.e("MainActivity", "Location detected");
+                etFrom.setText("Current Location");
+                etTo.requestFocus();
+            }
+        }catch(SecurityException e){
+            Log.e("MainActivity", "Could not get locations because security");
+        }
+    }
     @Override
     public void onDetach() {
         super.onDetach();

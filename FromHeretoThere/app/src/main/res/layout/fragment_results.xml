@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context="com.getfhtt.fhtt.MainActivity">
 
@@ -46,9 +46,7 @@
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                app:fc_text="35 minutes total\n35 minutes of physical activity\n200 calories"
-                app:fc_title="Walking" />
+                android:foreground="?android:attr/selectableItemBackground" />
 
             <com.getfhtt.fhtt.models.NavigateCard
                 android:id="@+id/cBiking"
@@ -58,9 +56,7 @@
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                app:fc_text="16 minutes total\n16 minutes of physical activity\n150 calories\n100m climb"
-                app:fc_title="Biking" />
+                android:foreground="?android:attr/selectableItemBackground" />
 
             <com.getfhtt.fhtt.models.NavigateCard
                 android:id="@+id/cTransit"
@@ -70,10 +66,7 @@
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                app:fc_cost="$3.00 Fare"
-                app:fc_text="20 minutes total\n5 minutes of physical activity\n15 calories\n\n~0.3L gas personally burned\n~0.1L CO2 personally emitted"
-                app:fc_title="Public Transit" />
+                android:foreground="?android:attr/selectableItemBackground" />
 
             <com.getfhtt.fhtt.models.NavigateCard
                 android:id="@+id/cDriving"
@@ -83,10 +76,7 @@
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                app:fc_cost="~$2.95 Gas"
-                app:fc_text="8 minutes total\n0 minutes of physical activity\n15 calories\n\n3L gas burned\n10L CO2 emitted"
-                app:fc_title="Driving" />
+                android:foreground="?android:attr/selectableItemBackground" />
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>
