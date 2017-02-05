@@ -45,7 +45,7 @@ public class ConfirmActivity extends AppCompatActivity {
                 text += "Burn " + calories + " calories\n";
                 text += "Save " + cost + " in gas money\n";
                 text += "Travel " + distance + " km\n";
-                text += "Travel for " + duraction + "\n";
+                text += "Travel for " + duraction + "";
                 tvText.setText(text);
             } break;
             case "bicycling": {
@@ -54,7 +54,7 @@ public class ConfirmActivity extends AppCompatActivity {
                 text += "Burn " + calories + " calories\n";
                 text += "Save " + cost + " in gas money\n";
                 text += "Travel " + distance + " km\n";
-                text += "Travel for " + duraction + "\n";
+                text += "Travel for " + duraction + "";
                 tvText.setText(text);
             } break;
             case "transit": {
@@ -63,17 +63,17 @@ public class ConfirmActivity extends AppCompatActivity {
                 text += "Burn " + calories + " calories\n";
                 text += "Save a little less than " + cost + " in gas money\n";
                 text += "Travel " + distance + " km\n";
-                text += "Travel for " + duraction + "\n";
+                text += "Travel for " + duraction + "";
                 tvText.setText(text);
             } break;
             case "driving":
             default: {
                 tvTitle.setText("By driving, you...");
-                String text = "Produce " + emissons + ",\n";
-                text += "Burn " + calories + " calories,\n";
-                text += "Spend " + cost + " in gas money,\n";
-                text += "Travel " + distance + " km,\n";
-                text += "Travel for " + duraction + ",\n";
+                String text = "Produce " + emissons + "\n";
+                text += "Burn " + calories + " calories\n";
+                text += "Spend " + cost + " in gas money\n";
+                text += "Travel " + distance + " km\n";
+                text += "Travel for " + duraction + "";
                 tvText.setText(text);
             } break;
         }
