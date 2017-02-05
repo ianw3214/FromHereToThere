@@ -77,7 +77,7 @@ public class ResultsFragment extends Fragment {
             @Override
             public void onDataLoaded() {
                 if(myTravel.isLoaded()){
-                    cWalking.setText(myTravel.getTravelTime() + " minutes total/\n" + myTravel.getTravelTime()+ " minutes physical activity/\n"+ "Some amount of calories");
+                    cWalking.setText(myTravel.getTravelTime() + " minutes total\n" + myTravel.getTravelTime()+ " minutes physical activity\n"+ "Some amount of calories");
                 }
             }
         });
