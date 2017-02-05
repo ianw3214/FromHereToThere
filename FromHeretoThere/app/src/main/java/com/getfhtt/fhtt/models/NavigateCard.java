@@ -9,6 +9,7 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -22,6 +23,8 @@ public class NavigateCard extends CardView{
     private TextView mTitleView;
     private TextView mMessageView;
     private TextView mCostView;
+    private TextView mEmissionView;
+    private ImageView mStar1, mStar2;
     private View mRoot;
     public static final int ANIM_DURATION = 200;
 
@@ -46,16 +49,23 @@ public class NavigateCard extends CardView{
         mRoot = inflater.inflate(R.layout.card_navigate, this, true);
         mTitleView = (TextView) mRoot.findViewById(R.id.tvCardTitle);
         mMessageView = (TextView) mRoot.findViewById(R.id.tvCardInfo);
+        mEmissionView = (TextView) mRoot.findViewById(R.id.tvCardEmission);
         mCostView = (TextView) mRoot.findViewById(R.id.tvCardCost);
+        mStar1 = (ImageView) mRoot.findViewById(R.id.ivLeaf1) ;
+        mStar2 = (ImageView) mRoot.findViewById(R.id.ivLeaf2) ;
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.NavigateCard, defStyle, 0);
         String title = a.getString(R.styleable.NavigateCard_fc_title);
         setTitle(title);
+        String emission = a.getString(R.styleable.NavigateCard_fc_emission);
+        setEmission(emission);
         String text = a.getString(R.styleable.NavigateCard_fc_text);
         String cost = a.getString(R.styleable.NavigateCard_fc_cost);
         setCost(cost);
         setText(text);
 
+        int stars = a.getInteger(R.styleable.NavigateCard_fc_stars,0);
+        setStars(stars);
 
         int dpValue = 16; // margin in dips
         float d = this.getResources().getDisplayMetrics().density;
@@ -90,6 +100,26 @@ public class NavigateCard extends CardView{
         } else {
             mTitleView.setVisibility(View.VISIBLE);
             mTitleView.setText(title);
+        }
+    }
+
+    public void setEmission(String emission) {
+        if (TextUtils.isEmpty(emission)) {
+            mTitleView.setVisibility(View.GONE);
+        } else {
+            mTitleView.setVisibility(View.VISIBLE);
+            mTitleView.setText(emission);
+        }
+    }
+
+    public void setStars(int stars){
+        if(stars>0){
+            if (stars == 1){
+                mStar1.setVisibility(VISIBLE);
+            }else{
+                mStar1.setVisibility(VISIBLE);
+                mStar2.setVisibility(VISIBLE);
+            }
         }
     }
 

@@ -18,15 +18,16 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
+        getSupportActionBar().setTitle("");
         SearchFragment mySearchFragment = new SearchFragment();
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.flFragment, mySearchFragment).commit();
     }
 
     public void searchAndDisplay(String origin, String destination){
-        getSupportActionBar().show();
-        getSupportActionBar().setTitle("Trip Options");
+        //getSupportActionBar().show();
+        getSupportActionBar().setTitle("Trip Details");
         Bundle bundle = new Bundle();
         bundle.putString("origin", origin);
         bundle.putString("destination", destination);
@@ -40,12 +41,14 @@ public class MainActivity extends AppCompatActivity{
     }
 
     public void goBack(){
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
+        getSupportActionBar().setTitle("");
         getSupportFragmentManager().popBackStackImmediate();
     }
     @Override
     public void onBackPressed() {
-        getSupportActionBar().hide();
+        getSupportActionBar().setTitle("");
+        //getSupportActionBar().hide();
         super.onBackPressed();
     }
 }

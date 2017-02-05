@@ -1,6 +1,8 @@
 package com.getfhtt.fhtt;
 
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,9 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.getfhtt.fhtt.models.NavigateCard;
-
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -85,23 +84,30 @@ public class ResultsFragment extends Fragment {
         final NavigateCard cTransit = (NavigateCard) myView.findViewById(R.id.cTransit);
         final NavigateCard cDriving = (NavigateCard) myView.findViewById(R.id.cDriving);
 
+        final TextView tvCopyright = (TextView) myView.findViewById(R.id.tvCopyright);
         final TextView tvInfo = (TextView) myView.findViewById(R.id.tvInfo);
 
         final Route myWalking = new Route(origin, destination, "walking");
-
         myWalking.setDataLoadedListener(new Route.DataLoadedListener() {
             @Override
             public void onDataLoaded() {
-                if(myWalking.isLoaded()){
-                    if(!myWalking.checkGeoCoder()){
+                if (myWalking.isLoaded()) {
+                    if (!myWalking.checkGeoCoder()) {
                         myMain.goBack();
-                    }else if(!myWalking.checkRoutes()){
+                    } else if (!myWalking.checkRoutes()) {
                         cWalking.setVisibility(View.GONE);
-                    }else {
+                    } else {
+                        tvCopyright.setText(myWalking.getCopyright());
                         itemloaded = true;
                         cWalking.setVisibility(View.VISIBLE);
-                        tvInfo.setText("From: "+ myWalking.getStartAddress() + "\nTo: " + myWalking.getEndAddress() + "\n~" + myWalking.getDistance()/1000 + "km depending on mode of transport");
-                        cWalking.setText(myWalking.getTravelTime() + " total\n" + myWalking.getTravelTime()+ " of physical activity\n"+ calories(myWalking.getDistance()/1000)+" calories");
+                        tvInfo.setText("From: " + myWalking.getStartAddress() + "\nTo: " + myWalking.getEndAddress() + "\n~" + myWalking.getDistance() / 1000 + "km depending on mode of transport");
+                        cWalking.setText(calories(myWalking.getDistance() / 1000) + " calories burned\n" + myWalking.getTravelTime() + " of physical activity\n" + myWalking.getTravelTime() + " total");
+                        cWalking.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                externalLink(myWalking.getStartAddress(), myWalking.getEndAddress());
+                            }
+                        });
                     }
                     loadeditems++;
                     updateLoadState();
@@ -112,15 +118,22 @@ public class ResultsFragment extends Fragment {
         myBiking.setDataLoadedListener(new Route.DataLoadedListener() {
             @Override
             public void onDataLoaded() {
-                if(myBiking.isLoaded()){
-                    if(!myBiking.checkGeoCoder()){
+                if (myBiking.isLoaded()) {
+                    if (!myBiking.checkGeoCoder()) {
                         myMain.goBack();
-                    }else if(!myBiking.checkRoutes()){
+                    } else if (!myBiking.checkRoutes()) {
                         cBiking.setVisibility(View.GONE);
-                    }else {
+                    } else {
+                        tvCopyright.setText(myBiking.getCopyright());
                         itemloaded = true;
                         cBiking.setVisibility(View.VISIBLE);
-                        cBiking.setText(myBiking.getTravelTime() + " total\n" + myBiking.getTravelTime()+ " of physical activity\n"+ calories(myBiking.getDistance()/1000)+" calories");
+                        cBiking.setText(calories(myBiking.getDistance() / 1000) + " calories burned\n" + myBiking.getTravelTime() + " of physical activity\n" + myBiking.getTravelTime() + " total");
+                        cBiking.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                externalLink(myWalking.getStartAddress(), myWalking.getEndAddress());
+                            }
+                        });
                     }
                     loadeditems++;
                     updateLoadState();
@@ -131,16 +144,23 @@ public class ResultsFragment extends Fragment {
         myTravel.setDataLoadedListener(new Route.DataLoadedListener() {
             @Override
             public void onDataLoaded() {
-                if(myTravel.isLoaded()){
+                if (myTravel.isLoaded()) {
 
-                    if(!myTravel.checkGeoCoder()){
+                    if (!myTravel.checkGeoCoder()) {
                         myMain.goBack();
-                    }else if(!myTravel.checkRoutes()){
+                    } else if (!myTravel.checkRoutes()) {
                         cTransit.setVisibility(View.GONE);
-                    }else {
+                    } else {
+                        tvCopyright.setText(myTravel.getCopyright());
                         itemloaded = true;
                         cTransit.setVisibility(View.VISIBLE);
-                        cTransit.setText(myTravel.getTravelTime() + " minutes total\n" + myTravel.getWalkingTime()+ " minutes physical activity\n"+ calories(myTravel.getDistance()/1000)+" calories");
+                        cTransit.setText(calories(myTravel.getDistance() / 1000) + " calories burned\n" + myTravel.getWalkingTime() + " minutes physical activity\n" + myTravel.getTravelTime() + " minutes total");
+                        cTransit.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                externalLink(myWalking.getStartAddress(), myWalking.getEndAddress());
+                            }
+                        });
                     }
                     loadeditems++;
                     updateLoadState();
@@ -151,17 +171,24 @@ public class ResultsFragment extends Fragment {
         myDriving.setDataLoadedListener(new Route.DataLoadedListener() {
             @Override
             public void onDataLoaded() {
-                if(myDriving.isLoaded()){
+                if (myDriving.isLoaded()) {
 
-                    if(!myDriving.checkGeoCoder()){
+                    if (!myDriving.checkGeoCoder()) {
                         myMain.goBack();
-                    }else if(!myDriving.checkRoutes()){
+                    } else if (!myDriving.checkRoutes()) {
                         cDriving.setVisibility(View.GONE);
-                    }else {
+                    } else {
+                        tvCopyright.setText(myDriving.getCopyright());
                         itemloaded = true;
                         cDriving.setVisibility(View.VISIBLE);
-                        cDriving.setCost("$"+cost(myDriving.getDistance()/1000+""));
-                        cDriving.setText(myDriving.getTravelTime() + " total\n" + myDriving.getWalkingTime() + " physical activity\n"+ myDriving.getTravelTimeMin() +" calories");
+                        cDriving.setCost("$" + cost(myDriving.getDistance() / 1000 + "")+ " Gas");
+                        cDriving.setText(myDriving.getTravelTimeMin() + " calories burned\n" + myDriving.getWalkingTime() + " minutes physical activity\n" + myDriving.getTravelTime() + " total");
+                        cDriving.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                externalLink(myWalking.getStartAddress(), myWalking.getEndAddress());
+                            }
+                        });
                     }
                     loadeditems++;
                     updateLoadState();
@@ -171,13 +198,22 @@ public class ResultsFragment extends Fragment {
         return myView;
     }
 
-    public void updateLoadState(){
-        if(loadeditems == 4 && !itemloaded){
+    public void externalLink(String origin, String destination) {
+        origin = origin.replace(" ", "+");
+        destination = destination.replace(" ", "+");
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/maps/dir/" + origin + "/" + destination));
+        startActivity(browserIntent);
+    }
+
+    public void updateLoadState() {
+        if (loadeditems == 4 && !itemloaded) {
             Toast.makeText(getActivity(), "Route not found. Locations entered may not be valid.", Toast.LENGTH_LONG).show();
             myMain.goBack();
-        }else if(itemloaded){
-            llLoading.setVisibility(View.GONE);
+        } else if (itemloaded) {
             rlTopBar.setVisibility(View.VISIBLE);
+        }
+        if(loadeditems == 4){
+            llLoading.setVisibility(View.GONE);
         }
     }
 
@@ -190,13 +226,13 @@ public class ResultsFragment extends Fragment {
         //Calculation for money saved
         double moneySaved = costPerKm * metres;
 
-        moneySaved = (double)Math.round(moneySaved * 100d) / 100d;
+        moneySaved = (double) Math.round(moneySaved * 100d) / 100d;
 
         return moneySaved;
 
     }
 
-    public long emissions (Long distance) {
+    public long emissions(Long distance) {
         long metres = distance;
 
         //Constant for Calculations
@@ -208,7 +244,7 @@ public class ResultsFragment extends Fragment {
         return emissionsSaved;
     }
 
-    public long calories (long distance) {
+    public long calories(long distance) {
         long metres = distance;
 
         //Constant for Calculations
@@ -220,7 +256,7 @@ public class ResultsFragment extends Fragment {
         return caloriesSaved;
     }
 
-    public int restingCals (String minutes) {
+    public int restingCals(String minutes) {
         return Integer.parseInt(minutes);
     }
 }

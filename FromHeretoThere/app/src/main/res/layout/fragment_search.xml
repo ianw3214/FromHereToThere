@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/bg"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop"
+        android:animateLayoutChanges="true"/>
 
     <LinearLayout
         android:layout_width="match_parent"
