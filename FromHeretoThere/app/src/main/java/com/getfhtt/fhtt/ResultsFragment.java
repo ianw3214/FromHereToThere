@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.getfhtt.fhtt.models.NavigateCard;
 
@@ -30,6 +31,11 @@ public class ResultsFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    int loadeditems = 0;
+    boolean itemloaded = false;
+    RelativeLayout rlTopBar;
+    LinearLayout llLoading;
+    MainActivity myMain;
 
     public ResultsFragment() {
         // Required empty public constructor
@@ -69,9 +75,10 @@ public class ResultsFragment extends Fragment {
 
         String origin = getArguments().getString("origin");
         String destination = getArguments().getString("destination");
+        myMain = (MainActivity) getActivity();
 
-        final LinearLayout llLoading = (LinearLayout) myView.findViewById(R.id.llLoading);
-        final RelativeLayout rlTopBar = (RelativeLayout) myView.findViewById(R.id.rlTopBar);
+        llLoading = (LinearLayout) myView.findViewById(R.id.llLoading);
+        rlTopBar = (RelativeLayout) myView.findViewById(R.id.rlTopBar);
 
         final NavigateCard cWalking = (NavigateCard) myView.findViewById(R.id.cWalking);
         final NavigateCard cBiking = (NavigateCard) myView.findViewById(R.id.cBiking);
@@ -81,21 +88,23 @@ public class ResultsFragment extends Fragment {
         final TextView tvInfo = (TextView) myView.findViewById(R.id.tvInfo);
 
         final Route myWalking = new Route(origin, destination, "walking");
+
         myWalking.setDataLoadedListener(new Route.DataLoadedListener() {
             @Override
             public void onDataLoaded() {
                 if(myWalking.isLoaded()){
                     if(!myWalking.checkGeoCoder()){
-                        // TODO: reroute user
+                        myMain.goBack();
                     }else if(!myWalking.checkRoutes()){
                         cWalking.setVisibility(View.GONE);
                     }else {
-                        llLoading.setVisibility(View.GONE);
+                        itemloaded = true;
                         cWalking.setVisibility(View.VISIBLE);
-                        rlTopBar.setVisibility(View.VISIBLE);
                         tvInfo.setText("From: "+ myWalking.getStartAddress() + "\nTo: " + myWalking.getEndAddress() + "\n~" + myWalking.getDistance()/1000 + "km depending on mode of transport");
                         cWalking.setText(myWalking.getTravelTime() + " total\n" + myWalking.getTravelTime()+ " of physical activity\n"+ calories(myWalking.getDistance()/1000)+" calories");
                     }
+                    loadeditems++;
+                    updateLoadState();
                 }
             }
         });
@@ -105,15 +114,16 @@ public class ResultsFragment extends Fragment {
             public void onDataLoaded() {
                 if(myBiking.isLoaded()){
                     if(!myBiking.checkGeoCoder()){
-                        // TODO: reroute user
+                        myMain.goBack();
                     }else if(!myBiking.checkRoutes()){
                         cBiking.setVisibility(View.GONE);
                     }else {
-                        llLoading.setVisibility(View.GONE);
-                        rlTopBar.setVisibility(View.VISIBLE);
+                        itemloaded = true;
                         cBiking.setVisibility(View.VISIBLE);
                         cBiking.setText(myBiking.getTravelTime() + " total\n" + myBiking.getTravelTime()+ " of physical activity\n"+ calories(myBiking.getDistance()/1000)+" calories");
                     }
+                    loadeditems++;
+                    updateLoadState();
                 }
             }
         });
@@ -124,15 +134,16 @@ public class ResultsFragment extends Fragment {
                 if(myTravel.isLoaded()){
 
                     if(!myTravel.checkGeoCoder()){
-                        // TODO: reroute user
+                        myMain.goBack();
                     }else if(!myTravel.checkRoutes()){
                         cTransit.setVisibility(View.GONE);
                     }else {
-                        llLoading.setVisibility(View.GONE);
-                        rlTopBar.setVisibility(View.VISIBLE);
+                        itemloaded = true;
                         cTransit.setVisibility(View.VISIBLE);
                         cTransit.setText(myTravel.getTravelTime() + " minutes total\n" + myTravel.getWalkingTime()+ " minutes physical activity\n"+ calories(myTravel.getDistance()/1000)+" calories");
                     }
+                    loadeditems++;
+                    updateLoadState();
                 }
             }
         });
@@ -143,20 +154,31 @@ public class ResultsFragment extends Fragment {
                 if(myDriving.isLoaded()){
 
                     if(!myDriving.checkGeoCoder()){
-                        // TODO: reroute user
+                        myMain.goBack();
                     }else if(!myDriving.checkRoutes()){
                         cDriving.setVisibility(View.GONE);
                     }else {
-                        llLoading.setVisibility(View.GONE);
-                        rlTopBar.setVisibility(View.VISIBLE);
+                        itemloaded = true;
                         cDriving.setVisibility(View.VISIBLE);
                         cDriving.setCost("$"+cost(myDriving.getDistance()/1000+""));
                         cDriving.setText(myDriving.getTravelTime() + " total\n" + myDriving.getWalkingTime() + " physical activity\n"+ myDriving.getTravelTimeMin() +" calories");
                     }
+                    loadeditems++;
+                    updateLoadState();
                 }
             }
         });
         return myView;
+    }
+
+    public void updateLoadState(){
+        if(loadeditems == 4 && !itemloaded){
+            Toast.makeText(getActivity(), "Route not found. Locations entered may not be valid.", Toast.LENGTH_LONG).show();
+            myMain.goBack();
+        }else if(itemloaded){
+            llLoading.setVisibility(View.GONE);
+            rlTopBar.setVisibility(View.VISIBLE);
+        }
     }
 
     public double cost(String distance) {

@@ -39,6 +39,10 @@ public class MainActivity extends AppCompatActivity{
                 .add(R.id.flFragment, rfResults).commit();
     }
 
+    public void goBack(){
+        getSupportActionBar().hide();
+        getSupportFragmentManager().popBackStackImmediate();
+    }
     @Override
     public void onBackPressed() {
         getSupportActionBar().hide();
