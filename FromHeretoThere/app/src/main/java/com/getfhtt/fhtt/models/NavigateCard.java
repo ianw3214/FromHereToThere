@@ -105,10 +105,10 @@ public class NavigateCard extends CardView{
 
     public void setEmission(String emission) {
         if (TextUtils.isEmpty(emission)) {
-            mTitleView.setVisibility(View.GONE);
+            mEmissionView.setVisibility(View.GONE);
         } else {
-            mTitleView.setVisibility(View.VISIBLE);
-            mTitleView.setText(emission);
+            mEmissionView.setVisibility(View.VISIBLE);
+            mEmissionView.setText(emission);
         }
     }
 

@@ -161,6 +161,12 @@ public class ResultsFragment extends Fragment {
                                 externalLink(myWalking.getStartAddress(), myWalking.getEndAddress());
                             }
                         });
+                        int fare = myTravel.getFare();
+                        if(fare < 0){
+                            cTransit.setCost("Unknown cost");
+                        }else{
+                            cTransit.setCost("$" + fare);
+                        }
                     }
                     loadeditems++;
                     updateLoadState();
@@ -182,17 +188,20 @@ public class ResultsFragment extends Fragment {
                         itemloaded = true;
                         cDriving.setVisibility(View.VISIBLE);
                         cDriving.setCost("$" + cost(myDriving.getDistance() / 1000 + "")+ " Gas");
-                        cDriving.setText(myDriving.getTravelTimeMin() + " calories burned\n" + myDriving.getWalkingTime() + " minutes physical activity\n" + myDriving.getTravelTime() + " total");
+                        cDriving.setText(myDriving.getTravelTimeMin() + " calories burned\n" + myDriving.getWalkingTime() + " minutes physical activity\n" + myDriving.getTravelTime() + " total\n" + (float) emissions(myDriving.getDistance()/1000)/1000 + "kg CO" + '\u2082');
                         cDriving.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 externalLink(myWalking.getStartAddress(), myWalking.getEndAddress());
                             }
                         });
+                        cDriving.setCost("$"+cost(myDriving.getDistance()/1000+""));
+                        //cDriving.setEmission((float) emissions(myDriving.getDistance()/1000)/1000 + "kg CO" + '\u2082');
                     }
                     loadeditems++;
                     updateLoadState();
                 }
+                
             }
         });
         return myView;
